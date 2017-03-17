@@ -1,9 +1,9 @@
+from setuptools import Command
 import argparse
 import pip
-from Package import make_package
-from setuptools import Command
 import pkg_resources
-from dep import get_raw_dependencies
+import distutils
+import Package
 
 __version__ = "0.0.1"
 
@@ -38,7 +38,7 @@ class BlackDuckCommand(Command):
             pkgs = get_raw_dependencies(project_av)
             pkg = pkgs.pop(0)
             pkg_dependencies = get_dependencies(pkg)
-            root = make_package(pkg.key, pkg.version, pkg_dependencies)
+            root = Package.make_package(pkg.key, pkg.version, pkg_dependencies)
             print(render_tree(root))
 
 
@@ -48,7 +48,7 @@ def get_dependencies(pkg):
         pkg = get_best(dependency)
         if pkg:
             pkg_dependencies = get_dependencies(pkg)
-            package = make_package(pkg.key, pkg.version, pkg_dependencies)
+            package = Package.make_package(pkg.key, pkg.version, pkg_dependencies)
             dependencies.append(package)
     return dependencies
 
@@ -69,3 +69,19 @@ def render_tree(root, layer=0):
         result += "\n" + (" " * 4 * layer)
         result += render_tree(dependency, layer + 1)
     return result
+
+def get_raw_dependencies(package):
+    project_requirement = pkg_resources.Requirement.parse(package)
+
+    environment = pkg_resources.Environment(
+        distutils.sysconfig.get_python_lib(),
+        platform=None,
+        python=None
+    )
+
+    dependencies = pkg_resources.working_set.resolve(
+        [project_requirement], env=environment
+    )
+
+    #dependencies = pkg_resources.working_set.find(project_requirement)
+    return dependencies
