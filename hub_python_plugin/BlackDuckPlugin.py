@@ -2,6 +2,8 @@ from setuptools import Command
 import argparse
 import Package
 from BlackDuckCore import *
+import Config
+import os
 
 __version__ = "0.0.1"
 
@@ -28,25 +30,27 @@ class BlackDuckCommand(Command):
         if self.config_path:
             assert os.path.exists(self.config_path), (
                 "Black Duck Config file %s does not exist." % self.config_path)
+            config = Config.make_config()
+            config.load_config(self.config_path)
+
+            self.config = config
+
+            self.flat_list = config.flat_list
+            self.tree_list = config.tree_list
 
     def run(self):
         """Run command."""
 
-        flat = self.flat_list
-        tree = self.tree_list
-
         project_av = self.distribution.get_name() + "==" + self.distribution.get_version()
 
-        if(tree):
-            pkgs = get_setup_dependencies(project_av)
-            pkg = pkgs.pop(0)  # The first dependency is itself
+        pkgs = get_setup_dependencies(project_av)
+        pkg = pkgs.pop(0)  # The first dependency is itself
+
+        if(self.flat_list):
+            flat_pkgs = list(set(pkgs)) # Remove duplicates
+            print(render_flat(flat_pkgs))
+
+        if(self.tree_list):
             pkg_dependencies = get_dependencies(pkg)
             root = Package.make_package(pkg.key, pkg.version, pkg_dependencies)
-            print(render_tree(root, 1))
-
-        if(flat):
-            pkgs = get_setup_dependencies(project_av)
-            pkg = pkgs.pop(0)  # The first dependency is itself
-            pkgs = list(set(pkgs)) # Remove duplicates
-            pkgs.sort(key = lambda x: x.key)
-            print(render_flat(pkgs))
+            print(render_tree(root))
