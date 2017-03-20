@@ -63,6 +63,7 @@ class BlackDuckCommand(Command):
 
         if(self.file_requirements):
             for req in self.file_requirements:  # req is the project_av
+                pkgs.extend(get_raw_dependencies(req))
                 best_match = get_best(req)  # Returns a pip dependency object
                 other_requirements = get_dependencies(best_match)  # Array of Packages
                 new_package = Package.make_package(
