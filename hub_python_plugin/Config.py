@@ -1,5 +1,6 @@
 import ConfigParser
 
+
 class Config(object):
 
     hub_url = None
@@ -33,8 +34,11 @@ class Config(object):
 
         self.hub_url = config.get("Hub Connection", "Hub.Url")
 
-        self.flat_list = config.getboolean("Options", "CreateFlatDependencyList")
-        self.tree_list = config.getboolean("Options", "CreateTreeDependencyList")
+        self.flat_list = config.getboolean(
+            "Options", "CreateFlatDependencyList")
+        self.tree_list = config.getboolean(
+            "Options", "CreateTreeDependencyList")
+
 
 def make_config():
     config = Config()

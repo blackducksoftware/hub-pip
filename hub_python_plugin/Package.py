@@ -15,6 +15,7 @@ class Package(object):
         id = name + "==" + version
         return id
 
+
 def make_package(name, version, dependencies):
     package = Package(name, version, dependencies)
     return package

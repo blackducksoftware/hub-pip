@@ -1,11 +1,12 @@
-import Config
 import os
 
 import pip
 from setuptools import Command
 
-import Package
 from BlackDuckCore import *
+import Config
+import Package
+
 
 __version__ = "0.0.1"
 
@@ -55,7 +56,8 @@ class BlackDuckCommand(Command):
         """Run command."""
 
         # The user's project's artifact and version
-        project_av = self.distribution.get_name() + "==" + self.distribution.get_version()
+        project_av = self.distribution.get_name(
+        ) + "==" + self.distribution.get_version()
 
         pkgs = get_raw_dependencies(project_av)
         pkg = pkgs.pop(0)  # The first dependency is itself
@@ -65,7 +67,8 @@ class BlackDuckCommand(Command):
             for req in self.file_requirements:  # req is the project_av
                 pkgs.extend(get_raw_dependencies(req))
                 best_match = get_best(req)  # Returns a pip dependency object
-                other_requirements = get_dependencies(best_match)  # Array of Packages
+                other_requirements = get_dependencies(
+                    best_match)  # Array of Packages
                 new_package = Package.make_package(
                     best_match.key, best_match.version, other_requirements)
                 pkg_dependencies.append(new_package)  # Add found dependencies
