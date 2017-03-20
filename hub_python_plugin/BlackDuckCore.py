@@ -1,10 +1,13 @@
+import ConfigParser
+import distutils
+
 import pip
 import pkg_resources
-import distutils
-import Package
-import ConfigParser
 
-def get_setup_dependencies(package):
+import Package
+
+
+def get_raw_dependencies(package):
     project_requirement = pkg_resources.Requirement.parse(package)
 
     environment = pkg_resources.Environment(
@@ -19,6 +22,7 @@ def get_setup_dependencies(package):
 
     #dependencies = pkg_resources.working_set.find(project_requirement)
     return dependencies
+
 
 def get_dependencies(pkg):
     dependencies = []
@@ -36,10 +40,13 @@ def get_best(dependency):  # Needs some work to check for multiple packages
     installed = pip.get_installed_distributions(
         local_only=False, user_only=False)
 
+    if hasattr(dependency, "key"):
+        dependency = dependency.key
+
     for pkg in installed:
-        if pkg.key == dependency.key:
+        if pkg.key == dependency:
             return pkg
-    print("No match found for: " + dependency.key)
+    print("No match found for: " + dependency)
     return None
 
 
@@ -51,9 +58,10 @@ def render_tree(root, layer=1):
         result += render_tree(dependency, layer + 1)
     return result
 
+
 def render_flat(pkgs):
     result = ""
-    pkgs.sort(key = lambda x: x.key)
+    pkgs.sort(key=lambda x: x.key)
     for pkg in pkgs:
         full_pkg = get_best(pkg)
         result += full_pkg.key + "==" + full_pkg.version + "\n"
