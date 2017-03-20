@@ -32,6 +32,7 @@ class BlackDuckCommand(Command):
 
     def finalize_options(self):
         """Post-process options."""
+        # If the user wants to use a config file. Necessary for hub connection
         if self.config_path:
             assert os.path.exists(self.config_path), (
                 "Black Duck Config file %s does not exist." % self.config_path)
@@ -42,6 +43,7 @@ class BlackDuckCommand(Command):
             self.flat_list = config.flat_list
             self.tree_list = config.tree_list
 
+        # If the user wants to include their requirements.txt file
         if self.requirements_path:
             assert os.path.exists(self.requirements_path), (
                 "The requirements file %s does not exist." % self.requirements_path)
@@ -52,6 +54,7 @@ class BlackDuckCommand(Command):
     def run(self):
         """Run command."""
 
+        # The user's project's artifact and version
         project_av = self.distribution.get_name() + "==" + self.distribution.get_version()
 
         pkgs = get_raw_dependencies(project_av)
@@ -59,13 +62,12 @@ class BlackDuckCommand(Command):
         pkg_dependencies = get_dependencies(pkg)
 
         if(self.file_requirements):
-            for req in self.file_requirements:
-                best_match = get_best(req)
-                other_requirements = get_dependencies(best_match)
+            for req in self.file_requirements:  # req is the project_av
+                best_match = get_best(req)  # Returns a pip dependency object
+                other_requirements = get_dependencies(best_match)  # Array of Packages
                 new_package = Package.make_package(
                     best_match.key, best_match.version, other_requirements)
-                pkg_dependencies.append(new_package)
-            print(pkg_dependencies)
+                pkg_dependencies.append(new_package)  # Add found dependencies
 
         if(self.flat_list):
             flat_pkgs = list(set(pkgs))  # Remove duplicates

@@ -36,7 +36,7 @@ def get_dependencies(pkg):
     return dependencies
 
 
-def get_best(dependency):  # Needs some work to check for multiple packages
+def get_best(dependency):  # Can take in an object with a key or just a string
     installed = pip.get_installed_distributions(
         local_only=False, user_only=False)
 
