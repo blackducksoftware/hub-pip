@@ -1,12 +1,12 @@
-import Config
+import json
 import os
 
 import pip
 from setuptools import Command
 
-import json.Serializer
-import Package
-from bdio.model.BdioNode import BdioNode
+import BlackDuckPackage as Package
+from bdio.Bdio import Bdio
+from BlackDuckConfig import BlackDuckConfig as Config
 from BlackDuckCore import *
 
 __version__ = "0.0.1"
@@ -38,7 +38,7 @@ class BlackDuckCommand(Command):
         if self.config_path:
             assert os.path.exists(self.config_path), (
                 "Black Duck Config file %s does not exist." % self.config_path)
-            config = Config.make_config()
+            config = Config()
             config.load_config(self.config_path)
 
             self.config = config
@@ -57,8 +57,7 @@ class BlackDuckCommand(Command):
         """Run command."""
 
         # The user's project's artifact and version
-        project_av = self.distribution.get_name(
-        ) + "==" + self.distribution.get_version()
+        project_av = self.distribution.get_name() + "==" + self.distribution.get_version()
 
         pkgs = get_raw_dependencies(project_av)
         pkg = pkgs.pop(0)  # The first dependency is itself
@@ -78,6 +77,16 @@ class BlackDuckCommand(Command):
             flat_pkgs = list(set(pkgs))  # Remove duplicates
             print(render_flat(flat_pkgs))
 
+        tree = Package.make_package(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
+
         if(self.tree_list):
-            root = Package.make_package(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
-            print(render_tree(root))
+            print(render_tree(tree))
+
+        if self.config.create_hub_bdio:
+            bdio = Bdio(tree)
+            bdio_data = bdio.generate_bdio()
+            path = self.config.output_path
+            if not os.path.exists(path):
+                os.makedirs(path)
+            with open(path + "/bdio.jsonld", "w+") as bdio_file:
+                json.dump(bdio_data, bdio_file, ensure_ascii=False)

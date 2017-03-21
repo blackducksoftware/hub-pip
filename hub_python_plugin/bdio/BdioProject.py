@@ -1,4 +1,4 @@
-class BdioNode(object):
+class BdioProject(object):
 
     id_ = None
     type_ = None
@@ -11,8 +11,8 @@ class BdioNode(object):
         "type_": "@type",
         "name": "name",
         "external_identifier": "externalIdentifier",
-        "relationships": "relationship"
+        "relationships": "relationship",
     }
 
     def __init__(self):
-        pass
+        type_ = "Project"

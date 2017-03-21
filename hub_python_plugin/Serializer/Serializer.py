@@ -14,8 +14,9 @@ def from_json_string(json_string, cls):
 def map_to_object(data, cls):  # data is a dictionary. cls is the class to convert to
     obj = cls()
     for k, v in data.items():
-        key = __exhange__(obj, k, to_left=True)
-        setattr(obj, key, v)
+        key = __exhange__(obj, k)
+        if key:
+            setattr(obj, key, v)
     return obj
 
 
@@ -27,16 +28,22 @@ def map_from_object(obj):
     return dictionary
 
 
-def __exhange__(obj, key, to_left=True):
+def __exhange__(obj, key):
     """Exchange provided key for mapped version"""
     if hasattr(obj, "attribute_map"):
         for k, v in obj.attribute_map.items():
-            if to_left and v == key:
+            if v == key:
                 return k
-            elif not to_left and k == key:
-                return v
-
     else:
         print(obj + " does not contain the attribute_map dictionary attribute")
-        return None
-    return key  # No match was found. Keep the same
+    return None
+    # return key  # No match was found. Keep the same
+
+
+data = {
+    "@id": "1234567890",
+    "@type": "ComponentTest",
+    "name": "six",
+    "externalIdentifier": "pypi:six/1.10.0",
+    "relationships": []
+}

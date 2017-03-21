@@ -1,4 +1,4 @@
-class Package(object):
+class BlackDuckPackage(object):
 
     key = None
     name = None
@@ -20,5 +20,5 @@ class Package(object):
 
 
 def make_package(key, name, version, dependencies):
-    package = Package(key, name, version, dependencies)
+    package = BlackDuckPackage(key, name, version, dependencies)
     return package

@@ -1,7 +1,7 @@
 import ConfigParser
 
 
-class Config(object):
+class BlackDuckConfig(object):
 
     hub_url = None
     hub_username = None
@@ -38,8 +38,3 @@ class Config(object):
             "Options", "CreateFlatDependencyList")
         self.tree_list = config.getboolean(
             "Options", "CreateTreeDependencyList")
-
-
-def make_config():
-    config = Config()
-    return config
