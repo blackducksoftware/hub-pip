@@ -56,26 +56,6 @@ class BlackDuckCommand(Command):
     def run(self):
         """Run command."""
 
-        bdio_node = BdioNode()
-        #out = bdio_node.to_json()
-        out = None
-
-        data = {
-            "@id": "123345667889",
-            "@type": "BillOfMaterials",
-            "name": "TheBestNode",
-            "externalIdentifier": "TheBestNode/0.0.1",
-            "relationship": []
-        }
-        out = map_to_object(data, BdioNode)
-
-        print(vars(out))
-        print(out.id_)
-
-        out = map_from_object(out)
-        print(out)
-
-
         # The user's project's artifact and version
         project_av = self.distribution.get_name(
         ) + "==" + self.distribution.get_version()
@@ -91,7 +71,7 @@ class BlackDuckCommand(Command):
                 other_requirements = get_dependencies(
                     best_match)  # Array of Packages
                 new_package = Package.make_package(
-                    best_match.key, best_match.version, other_requirements)
+                    best_match.key, best_match.project_name, best_match.version, other_requirements)
                 pkg_dependencies.append(new_package)  # Add found dependencies
 
         if(self.flat_list):
@@ -99,5 +79,5 @@ class BlackDuckCommand(Command):
             print(render_flat(flat_pkgs))
 
         if(self.tree_list):
-            root = Package.make_package(pkg.key, pkg.version, pkg_dependencies)
+            root = Package.make_package(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
             print(render_tree(root))

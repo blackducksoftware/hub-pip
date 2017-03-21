@@ -1,9 +1,12 @@
 class Package(object):
-    name = ""
-    version = ""
+
+    key = None
+    name = None
+    version = None
     dependencies = []
 
-    def __init__(self, name, version, dependencies):
+    def __init__(self, key, name, version, dependencies):
+        self.key = key
         self.name = name
         self.version = version
         self.dependencies = dependencies
@@ -16,6 +19,6 @@ class Package(object):
         return id
 
 
-def make_package(name, version, dependencies):
-    package = Package(name, version, dependencies)
+def make_package(key, name, version, dependencies):
+    package = Package(key, name, version, dependencies)
     return package

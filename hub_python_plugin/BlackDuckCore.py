@@ -31,7 +31,7 @@ def get_dependencies(pkg):
         if pkg:
             pkg_dependencies = get_dependencies(pkg)
             package = Package.make_package(
-                pkg.key, pkg.version, pkg_dependencies)
+                pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
             dependencies.append(package)
     return dependencies
 
