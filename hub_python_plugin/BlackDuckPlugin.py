@@ -4,7 +4,7 @@ import os
 import pip
 from setuptools import Command
 
-from json.JsonWriter import *
+import json.Serializer
 import Package
 from bdio.model.BdioNode import BdioNode
 from BlackDuckCore import *
