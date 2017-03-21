@@ -20,10 +20,10 @@ setup(
         "Generates and deploy's Black Duck I/O files for use with the Black Duck Hub"),
     license="Apache 2.0",
     keywords="hub_python_plugin blackduck",
-    url="http://packages.python.org/an_example_pypi_project",
+    url="https://github.com/blackducksoftware/hub-python-plugin",
     packages=[],
     install_requires=["ConfigParser"],
-    long_description=read('README'),
+    long_description=read("README.md"),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Topic :: Utilities",

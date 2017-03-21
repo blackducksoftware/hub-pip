@@ -1,12 +1,13 @@
+import Config
 import os
 
 import pip
 from setuptools import Command
 
-from BlackDuckCore import *
-import Config
+from json.JsonWriter import *
 import Package
-
+from bdio.model.BdioNode import BdioNode
+from BlackDuckCore import *
 
 __version__ = "0.0.1"
 
@@ -54,6 +55,26 @@ class BlackDuckCommand(Command):
 
     def run(self):
         """Run command."""
+
+        bdio_node = BdioNode()
+        #out = bdio_node.to_json()
+        out = None
+
+        data = {
+            "@id": "123345667889",
+            "@type": "BillOfMaterials",
+            "name": "TheBestNode",
+            "externalIdentifier": "TheBestNode/0.0.1",
+            "relationship": []
+        }
+        out = map_to_object(data, BdioNode)
+
+        print(vars(out))
+        print(out.id_)
+
+        out = map_from_object(out)
+        print(out)
+
 
         # The user's project's artifact and version
         project_av = self.distribution.get_name(
