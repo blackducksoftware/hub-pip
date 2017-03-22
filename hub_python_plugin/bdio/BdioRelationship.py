@@ -1,7 +1,7 @@
 class BdioRelationship(object):
 
     related = None
-    relationshipType = None
+    relationshipType = "DYNAMIC_LINK"
 
     attribute_map = {
         "related": "related",

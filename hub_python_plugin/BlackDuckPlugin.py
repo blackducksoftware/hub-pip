@@ -4,7 +4,7 @@ import os
 import pip
 from setuptools import Command
 
-import BlackDuckPackage as Package
+import BlackDuckPackage
 from bdio.Bdio import Bdio
 from BlackDuckConfig import BlackDuckConfig as Config
 from BlackDuckCore import *
@@ -69,7 +69,7 @@ class BlackDuckCommand(Command):
                 best_match = get_best(req)  # Returns a pip dependency object
                 other_requirements = get_dependencies(
                     best_match)  # Array of Packages
-                new_package = Package.make_package(
+                new_package = BlackDuckPackage.make_package(
                     best_match.key, best_match.project_name, best_match.version, other_requirements)
                 pkg_dependencies.append(new_package)  # Add found dependencies
 
@@ -77,7 +77,7 @@ class BlackDuckCommand(Command):
             flat_pkgs = list(set(pkgs))  # Remove duplicates
             print(render_flat(flat_pkgs))
 
-        tree = Package.make_package(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
+        tree = BlackDuckPackage.make_package(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
 
         if(self.tree_list):
             print(render_tree(tree))
@@ -89,4 +89,4 @@ class BlackDuckCommand(Command):
             if not os.path.exists(path):
                 os.makedirs(path)
             with open(path + "/bdio.jsonld", "w+") as bdio_file:
-                json.dump(bdio_data, bdio_file, ensure_ascii=False)
+                json.dump(bdio_data, bdio_file, ensure_ascii=False, indent=4, sort_keys=True)

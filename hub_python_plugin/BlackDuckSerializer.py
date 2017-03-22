@@ -24,7 +24,9 @@ def map_from_object(obj):
     dictionary = {}
     attr_map = obj.attribute_map
     for k, v in attr_map.items():
-        dictionary[v] = getattr(obj, k)
+        attr = getattr(obj, k)
+        if attr:
+            dictionary[v] = attr
     return dictionary
 
 
@@ -37,13 +39,3 @@ def __exhange__(obj, key):
     else:
         print(obj + " does not contain the attribute_map dictionary attribute")
     return None
-    # return key  # No match was found. Keep the same
-
-
-data = {
-    "@id": "1234567890",
-    "@type": "ComponentTest",
-    "name": "six",
-    "externalIdentifier": "pypi:six/1.10.0",
-    "relationships": []
-}

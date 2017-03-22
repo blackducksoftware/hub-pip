@@ -1,11 +1,11 @@
 class BdioExternalIdentifier(object):
 
     forge = None
-    external_id = None
+    external_identifier = None
 
     attribute_map = {
         "forge": "externalSystemTypeId",
-        "external_id": "externalId",
+        "external_identifier": "externalId",
     }
 
     def __init__(self):

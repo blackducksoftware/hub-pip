@@ -4,7 +4,7 @@ import distutils
 import pip
 import pkg_resources
 
-import Package
+import BlackDuckPackage
 
 
 def get_raw_dependencies(package):
@@ -30,7 +30,7 @@ def get_dependencies(pkg):
         pkg = get_best(dependency)
         if pkg:
             pkg_dependencies = get_dependencies(pkg)
-            package = Package.make_package(
+            package = BlackDuckPackage.make_package(
                 pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
             dependencies.append(package)
     return dependencies
