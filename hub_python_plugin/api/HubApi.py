@@ -71,13 +71,5 @@ class HubApi(object):
         url = "{}/{}".format(self.config.hub_url, path)
         return url
 
-    def upload_bdio(self, bdio):
-        path = "api/bom-import"
-        url = self.build_url(path)
-        headers = self.headers_jsonld()
-        proxies = self.get_proxies()
-        response = self._session.post(url, bdio, headers=headers, proxies=proxies)
-        return response
-
     def check_policy(self):
         pass

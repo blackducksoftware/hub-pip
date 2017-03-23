@@ -6,6 +6,7 @@ from setuptools import Command
 
 import BlackDuckPackage
 from api.AuthenticationDataService import AuthenticationDataService
+from api.LinkedDataDataService import LinkedDataDataService
 from api.HubApi import HubApi
 from bdio.Bdio import Bdio
 from BlackDuckConfig import BlackDuckConfig as Config
@@ -121,14 +122,17 @@ class BlackDuckCommand(Command):
             bdio_file = open(bdio_file_path, "r")
             bdio_data = bdio_file.read()
 
-            api = HubApi(self.config.hub_server_config)
-            authentication_data_service = AuthenticationDataService(api)
-            authentication_response = authentication_data_service.authenticate()
-            authentication_response.raise_for_status()
-
-            linked_data_response = api.upload_bdio(bdio_data)
+            api = self.get_authenticated_api()
+            linked_data_data_service = LinkedDataDataService(api)
+            linked_data_response = linked_data_data_service.upload_bdio(bdio_data)
             linked_data_response.raise_for_status()
 
+    def get_authenticated_api(self):
+        api = HubApi(self.config.hub_server_config)
+        authentication_data_service = AuthenticationDataService(api)
+        authentication_response = authentication_data_service.authenticate()
+        authentication_response.raise_for_status()
+        return api
 
 def string_to_boolean(string):
     if string == "True":
