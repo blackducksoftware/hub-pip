@@ -97,7 +97,7 @@ class BlackDuckCommand(Command):
                 best_match = get_best(req)  # Returns a pip dependency object
                 other_requirements = get_dependencies(
                     best_match)  # Array of Packages
-                new_package = BlackDuckPackage.make_package(
+                new_package = BlackDuckPackage(
                     best_match.key, best_match.project_name, best_match.version, other_requirements)
                 pkg_dependencies.append(new_package)  # Add found dependencies
 
@@ -105,8 +105,7 @@ class BlackDuckCommand(Command):
             flat_pkgs = list(set(pkgs))  # Remove duplicates
             print(render_flat(flat_pkgs))
 
-        tree = BlackDuckPackage.make_package(
-            pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
+        tree = BlackDuckPackage(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
 
         if self.config.tree_list:
             print(render_tree(tree))
@@ -136,7 +135,7 @@ class BlackDuckCommand(Command):
             paged_project_view = project_data_service.get_paged_project_view(tree.name)
             project_view = paged_project_view.items[0]
             paged_version_view = project_data_service.get_paged_version_view(project_view)
-            print(vars(paged_version_view))
+            #print(vars(paged_version_view))
 
     def get_authenticated_api(self):
         rc = RestConnection(self.config.hub_server_config)

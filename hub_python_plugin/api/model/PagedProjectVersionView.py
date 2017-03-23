@@ -1,4 +1,4 @@
-from ProjectVersionView import ProjectVersionView
+from hub_python_plugin.api.model.ProjectVersionView import ProjectVersionView
 
 class PagedProjectVersionView(object):
 

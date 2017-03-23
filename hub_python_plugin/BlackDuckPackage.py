@@ -1,4 +1,4 @@
-from bdio.BdioExternalIdentifier import BdioExternalIdentifier
+from hub_python_plugin.bdio.BdioExternalIdentifier import BdioExternalIdentifier
 
 
 class BlackDuckPackage(object):
@@ -43,7 +43,3 @@ class BlackDuckPackage(object):
                 flattened.append(pkg)
                 flattened.extend(pkg.flatten())
         return flattened
-
-def make_package(key, name, version, dependencies):
-    package = BlackDuckPackage(key, name, version, dependencies)
-    return package
