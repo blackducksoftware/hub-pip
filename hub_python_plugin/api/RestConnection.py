@@ -22,7 +22,13 @@ class RestConnection(object):
         queryParameters: dict
         """
         url = self.build_url(path)
+        return self.make_get_request_link(url, params=params, headers=headers, proxies=proxies)
 
+    def make_get_request_link(self, url, params=None, headers=None, proxies=None):
+        """
+        url: str
+        queryParameters: dict
+        """
         if headers is None:
             headers = self.headers_json()
 

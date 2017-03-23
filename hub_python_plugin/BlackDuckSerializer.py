@@ -50,8 +50,8 @@ def _exhange_properties(obj):
                 if inspect.isclass(v[0]):
                     data = [map_to_object(item, v[0]) for item in getattr(obj, k)]
                     setattr(obj, k, data)
-            elif inpspect.isclass(v):
-                data = map_to_object(obj[k], v)
+            elif inspect.isclass(v):
+                data = map_to_object(getattr(obj, k), v)
                 setattr(obj, k, data)
             else:
                 raise Exception(

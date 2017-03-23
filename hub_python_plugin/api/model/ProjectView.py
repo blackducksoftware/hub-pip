@@ -1,3 +1,5 @@
+from hub_python_plugin.api.model.MetadataView import MetadataView
+
 class ProjectView(object):
 
     description = None
@@ -14,6 +16,10 @@ class ProjectView(object):
         'project_tier': 'projectTier',
         'source': 'source',
         'metadata': '_meta'
+    }
+
+    attribute_schema = {
+        "metadata": MetadataView
     }
 
     def __init__(self):

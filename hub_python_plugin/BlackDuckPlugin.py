@@ -4,14 +4,15 @@ import os
 import pip
 from setuptools import Command
 
-import BlackDuckPackage
-from api.AuthenticationDataService import AuthenticationDataService
-from api.LinkedDataDataService import LinkedDataDataService
-from api.ProjectDataService import ProjectDataService
-from api.RestConnection import RestConnection
-from bdio.Bdio import Bdio
-from BlackDuckConfig import BlackDuckConfig as Config
-from BlackDuckCore import *
+import hub_python_plugin.BlackDuckPackage
+from hub_python_plugin.api.AuthenticationDataService import \
+    AuthenticationDataService
+from hub_python_plugin.api.LinkedDataDataService import LinkedDataDataService
+from hub_python_plugin.api.ProjectDataService import ProjectDataService
+from hub_python_plugin.api.RestConnection import RestConnection
+from hub_python_plugin.bdio.Bdio import Bdio
+from hub_python_plugin.BlackDuckConfig import BlackDuckConfig as Config
+from hub_python_plugin.BlackDuckCore import *
 
 __version__ = "0.0.1"
 
@@ -84,7 +85,7 @@ class BlackDuckCommand(Command):
         # The user's project's artifact and version
         project_name = self.distribution.get_name()
         project_version = self.distribution.get_version()
-        project_av =  project_name + "==" + project_version
+        project_av = project_name + "==" + project_version
 
         pkgs = get_raw_dependencies(project_av)
         pkg = pkgs.pop(0)  # The first dependency is itself
@@ -124,7 +125,7 @@ class BlackDuckCommand(Command):
             assert os.path.exists(bdio_file_path)
             bdio_data = open(bdio_file_path, "r").read()
 
-            api = self.get_authenticated_api()
+            rc = self.get_authenticated_api()
             linked_data_data_service = LinkedDataDataService(rc)
             linked_data_response = linked_data_data_service.upload_bdio(bdio_data)
             linked_data_response.raise_for_status()
@@ -132,8 +133,10 @@ class BlackDuckCommand(Command):
         if self.config.check_policies:
             rc = self.get_authenticated_api()
             project_data_service = ProjectDataService(rc)
-            response = project_data_service.get_paged_project_view(tree.name)
-            print(vars(response))
+            paged_project_view = project_data_service.get_paged_project_view(tree.name)
+            project_view = paged_project_view.items[0]
+            paged_version_view = project_data_service.get_paged_version_view(project_view)
+            print(vars(paged_version_view))
 
     def get_authenticated_api(self):
         rc = RestConnection(self.config.hub_server_config)
@@ -141,6 +144,7 @@ class BlackDuckCommand(Command):
         authentication_response = authentication_data_service.authenticate()
         authentication_response.raise_for_status()
         return rc
+
 
 def string_to_boolean(string):
     if string == "True":

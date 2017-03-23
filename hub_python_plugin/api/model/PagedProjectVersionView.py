@@ -1,6 +1,6 @@
-from hub_python_plugin.api.model.ProjectView import ProjectView
+from ProjectVersionView import ProjectVersionView
 
-class PagedProjectView(object):
+class PagedProjectVersionView(object):
 
     total_count = None
     items = None
@@ -11,7 +11,7 @@ class PagedProjectView(object):
     }
 
     attribute_schema = {
-        "items": [ProjectView]
+        "items": [ProjectVersionView]
     }
 
     def __init__(self):
