@@ -1,16 +1,17 @@
-from HubApi import HubApi
+from RestConnection import RestConnection
+
 
 class LinkedDataDataService(object):
 
-    hub_api = None
+    rest_connection = None
 
-    def __init__(self, hub_api):
-        self.hub_api = hub_api
+    def __init__(self, rest_connection):
+        self.rest_connection = rest_connection
 
     def upload_bdio(self, bdio):
         path = "api/bom-import"
-        url = self.hub_api.build_url(path)
-        headers = self.hub_api.headers_jsonld()
-        proxies = self.hub_api.get_proxies()
-        response = self.hub_api._session.post(url, bdio, headers=headers, proxies=proxies)
+        url = self.rest_connection.build_url(path)
+        headers = self.rest_connection.headers_jsonld()
+        proxies = self.rest_connection.get_proxies()
+        response = self.rest_connection._session.post(url, bdio, headers=headers, proxies=proxies)
         return response

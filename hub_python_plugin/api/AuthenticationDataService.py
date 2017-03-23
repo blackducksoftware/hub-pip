@@ -1,17 +1,18 @@
-from HubApi import HubApi
+from RestConnection import RestConnection
+
 
 class AuthenticationDataService(object):
 
-    hub_api = None
+    rest_connection = None
 
-    def __init__(self, hub_api):
-        self.hub_api = hub_api
+    def __init__(self, rest_connection):
+        self.rest_connection = rest_connection
 
     def authenticate(self):
         # Sprinkle cookies into the session
         credentials = {
-            "j_username": self.hub_api.config.hub_username,
-            "j_password": self.hub_api.config.hub_password
+            "j_username": self.rest_connection.config.hub_username,
+            "j_password": self.rest_connection.config.hub_password
         }
-        response = self.hub_api.make_post_request(self.hub_api.JSPRING, credentials)
+        response = self.rest_connection.make_post_request(self.rest_connection.JSPRING, credentials)
         return response

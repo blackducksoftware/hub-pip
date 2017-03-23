@@ -4,7 +4,7 @@ from hub_python_plugin.BlackDuckSerializer import *
 from HubServerConfig import HubServerConfig
 
 
-class HubApi(object):
+class RestConnection(object):
 
     JSPRING = "/j_spring_security_check"
 

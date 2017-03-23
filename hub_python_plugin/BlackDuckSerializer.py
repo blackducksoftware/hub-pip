@@ -38,8 +38,6 @@ def _exhange(obj, key):
         for k, v in obj.attribute_map.items():
             if v == key:
                 return k
-    else:
-        print(obj + " does not contain the attribute_map dictionary attribute")
     return None
 
 

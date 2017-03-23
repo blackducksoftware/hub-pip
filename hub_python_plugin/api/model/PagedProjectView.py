@@ -1,6 +1,6 @@
 from ProjectView import ProjectView
 
-class PagedView(object):
+class PagedProjectView(object):
 
     total_count = None
     items = None

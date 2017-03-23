@@ -8,7 +8,7 @@ import BlackDuckPackage
 from api.AuthenticationDataService import AuthenticationDataService
 from api.LinkedDataDataService import LinkedDataDataService
 from api.ProjectDataService import ProjectDataService
-from api.HubApi import HubApi
+from api.RestConnection import RestConnection
 from bdio.Bdio import Bdio
 from BlackDuckConfig import BlackDuckConfig as Config
 from BlackDuckCore import *
@@ -125,22 +125,22 @@ class BlackDuckCommand(Command):
             bdio_data = open(bdio_file_path, "r").read()
 
             api = self.get_authenticated_api()
-            linked_data_data_service = LinkedDataDataService(api)
+            linked_data_data_service = LinkedDataDataService(rc)
             linked_data_response = linked_data_data_service.upload_bdio(bdio_data)
             linked_data_response.raise_for_status()
 
         if self.config.check_policies:
-            api = self.get_authenticated_api()
-            project_data_service = ProjectDataService(api)
+            rc = self.get_authenticated_api()
+            project_data_service = ProjectDataService(rc)
             response = project_data_service.get_paged_project_view(tree.name)
-            
+            print(vars(response))
 
     def get_authenticated_api(self):
-        api = HubApi(self.config.hub_server_config)
-        authentication_data_service = AuthenticationDataService(api)
+        rc = RestConnection(self.config.hub_server_config)
+        authentication_data_service = AuthenticationDataService(rc)
         authentication_response = authentication_data_service.authenticate()
         authentication_response.raise_for_status()
-        return api
+        return rc
 
 def string_to_boolean(string):
     if string == "True":
