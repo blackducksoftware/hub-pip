@@ -31,7 +31,7 @@ class BlackDuckConfig(object):
     def from_file(self, config_file_path):
         bd_config = BlackDuckConfig()
 
-        config = ConfigParser.RawConfigParser()
+        config = configparser.RawConfigParser()
         config.allow_no_value = True
         config.read(config_file_path)
 
