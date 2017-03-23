@@ -1,4 +1,7 @@
-import ConfigParser
+try:
+    import configparser
+except:
+    from six.moves import configparser
 
 from bdsplugin.api.HubServerConfig import HubServerConfig
 
