@@ -4,22 +4,21 @@ import os
 import pip
 from setuptools import Command
 
-import hub_python_plugin.BlackDuckPackage
-from hub_python_plugin.api.AuthenticationDataService import \
-    AuthenticationDataService
-from hub_python_plugin.api.LinkedDataDataService import LinkedDataDataService
-from hub_python_plugin.api.ProjectDataService import ProjectDataService
-from hub_python_plugin.api.RestConnection import RestConnection
-from hub_python_plugin.bdio.Bdio import Bdio
-from hub_python_plugin.BlackDuckConfig import BlackDuckConfig as Config
-from hub_python_plugin.BlackDuckCore import *
+import bdsplugin.BlackDuckPackage
+from bdsplugin.api.AuthenticationDataService import AuthenticationDataService
+from bdsplugin.api.LinkedDataDataService import LinkedDataDataService
+from bdsplugin.api.ProjectDataService import ProjectDataService
+from bdsplugin.api.RestConnection import RestConnection
+from bdsplugin.bdio.Bdio import Bdio
+from bdsplugin.BlackDuckConfig import BlackDuckConfig
+from bdsplugin.BlackDuckCore import *
 
 __version__ = "0.0.1"
 
 
 class BlackDuckCommand(Command):
 
-    description = "Setuptools hub_python_plugin"
+    description = "Setuptools bdsplugin"
 
     user_options = [
         ("config-path=", "c", "Path to Black Duck Configuration file"),
@@ -52,9 +51,9 @@ class BlackDuckCommand(Command):
         if provided_config:
             assert os.path.exists(self.config_path), (
                 "Black Duck Config file %s does not exist." % self.config_path)
-            self.config = Config.from_file(self.config_path)
+            self.config = BlackDuckConfig.from_file(self.config_path)
         else:
-            self.config = Config.from_nothing
+            self.config = BlackDuckConfig.from_nothing()
 
         if self.flat_list is not None:
             self.config.flat_list = string_to_boolean(self.flat_list)
@@ -135,7 +134,7 @@ class BlackDuckCommand(Command):
             paged_project_view = project_data_service.get_paged_project_view(tree.name)
             project_view = paged_project_view.items[0]
             paged_version_view = project_data_service.get_paged_version_view(project_view)
-            #print(vars(paged_version_view))
+            # print(vars(paged_version_view))
 
     def get_authenticated_api(self):
         rc = RestConnection(self.config.hub_server_config)

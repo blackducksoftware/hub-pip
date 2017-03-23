@@ -1,7 +1,7 @@
 import requests
 
-from hub_python_plugin.BlackDuckSerializer import *
-from hub_python_plugin.api.HubServerConfig import HubServerConfig
+from bdsplugin.BlackDuckSerializer import *
+from bdsplugin.api.HubServerConfig import HubServerConfig
 
 
 class RestConnection(object):

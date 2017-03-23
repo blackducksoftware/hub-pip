@@ -1,4 +1,4 @@
-from hub_python_plugin.api.model.MetadataView import MetadataView
+from bdsplugin.api.model.MetadataView import MetadataView
 
 class ProjectView(object):
 

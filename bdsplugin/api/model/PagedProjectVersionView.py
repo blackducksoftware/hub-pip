@@ -1,4 +1,4 @@
-from hub_python_plugin.api.model.ProjectVersionView import ProjectVersionView
+from bdsplugin.api.model.ProjectVersionView import ProjectVersionView
 
 class PagedProjectVersionView(object):
 

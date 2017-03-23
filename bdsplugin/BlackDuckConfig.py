@@ -1,6 +1,6 @@
 import ConfigParser
 
-from api.HubServerConfig import HubServerConfig
+from bdsplugin.api.HubServerConfig import HubServerConfig
 
 
 class BlackDuckConfig(object):

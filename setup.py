@@ -12,15 +12,15 @@ def read(fname):
 
 
 setup(
-    name="hub_python_plugin",
+    name="bdsplugin",
     version="0.0.1",
     author="Black Duck Software",
     author_email="",
     description=(
         "Generates and deploy's Black Duck I/O files for use with the Black Duck Hub"),
     license="Apache 2.0",
-    keywords="hub_python_plugin blackduck",
-    url="https://github.com/blackducksoftware/hub-python-plugin",
+    keywords="bdsplugin blackduck",
+    url="https://github.com/blackducksoftware/bdsplugin",
     packages=[],
     install_requires=["configparser", "requests", "six"],
     long_description=read("README.md"),

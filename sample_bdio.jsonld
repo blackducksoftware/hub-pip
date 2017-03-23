@@ -6,12 +6,12 @@
 	},
 	{
 		"revision": "99.5-SNAPSHOT",
-		"@id": "data:hub_python_plugin/0.0.1",
+		"@id": "data:bdsplugin/0.0.1",
 		"@type": "Project",
-		"name": "hub-python-plugin",
+		"name": "bdsplugin",
 		"externalIdentifier": {
 			"externalSystemTypeId": "pypi",
-			"externalId": "hub_python_plugin/0.0.1"
+			"externalId": "bdsplugin/0.0.1"
 		},
 		"relationship": [{
 			"related": "data:delorean/0.6.0",

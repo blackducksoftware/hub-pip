@@ -1,4 +1,4 @@
-from hub_python_plugin.api.RestConnection import RestConnection
+from bdsplugin.api.RestConnection import RestConnection
 
 
 class LinkedDataDataService(object):

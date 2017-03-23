@@ -1,1 +1,1 @@
-# hub-python-plugin
+# bdsplugin

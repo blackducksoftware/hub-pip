@@ -1,11 +1,11 @@
 
-from hub_python_plugin.bdio.BdioComponent import BdioComponent
-from hub_python_plugin.bdio.BdioExternalIdentifier import BdioExternalIdentifier
-from hub_python_plugin.bdio.BdioProject import BdioProject
-from hub_python_plugin.bdio.BdioRelationship import BdioRelationship
-from hub_python_plugin.bdio.BillOfMaterials import BillOfMaterials
-from hub_python_plugin.BlackDuckPackage import BlackDuckPackage
-from hub_python_plugin.BlackDuckSerializer import *
+from bdsplugin.bdio.BdioComponent import BdioComponent
+from bdsplugin.bdio.BdioExternalIdentifier import BdioExternalIdentifier
+from bdsplugin.bdio.BdioProject import BdioProject
+from bdsplugin.bdio.BdioRelationship import BdioRelationship
+from bdsplugin.bdio.BillOfMaterials import BillOfMaterials
+from bdsplugin.BlackDuckPackage import BlackDuckPackage
+from bdsplugin.BlackDuckSerializer import *
 
 
 class Bdio(object):

@@ -7,7 +7,7 @@ import distutils
 import pip
 import pkg_resources
 
-from hub_python_plugin.BlackDuckPackage import BlackDuckPackage
+from bdsplugin.BlackDuckPackage import BlackDuckPackage
 
 
 def get_raw_dependencies(package):

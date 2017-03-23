@@ -1,4 +1,4 @@
-from hub_python_plugin.api.model.ProjectView import ProjectView
+from bdsplugin.api.model.ProjectView import ProjectView
 
 class PagedProjectView(object):
 

@@ -1,4 +1,4 @@
-from hub_python_plugin.bdio.BdioExternalIdentifier import BdioExternalIdentifier
+from bdsplugin.bdio.BdioExternalIdentifier import BdioExternalIdentifier
 
 
 class BlackDuckPackage(object):
