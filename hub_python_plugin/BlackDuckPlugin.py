@@ -5,6 +5,7 @@ import pip
 from setuptools import Command
 
 import BlackDuckPackage
+from api.HubApi import HubApi
 from bdio.Bdio import Bdio
 from BlackDuckConfig import BlackDuckConfig as Config
 from BlackDuckCore import *
@@ -112,6 +113,18 @@ class BlackDuckCommand(Command):
                 os.makedirs(path)
             with open(path + "/bdio.jsonld", "w+") as bdio_file:
                 json.dump(bdio_data, bdio_file, ensure_ascii=False, indent=4, sort_keys=True)
+
+        if self.config.deploy_hub_bdio:
+            bdio_file_path = self.config.output_path + "/bdio.jsonld"
+            assert os.path.exists(bdio_file_path)
+            bdio_file = open(bdio_file_path, "r")
+            bdio_data = bdio_file.read()
+
+            api = HubApi(self.config.hub_server_config)
+            print(api.authenticate())
+
+            response = api.upload_bdio(bdio_data)
+            response.raise_for_status()
 
 
 def string_to_boolean(string):

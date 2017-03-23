@@ -16,7 +16,7 @@ class BlackDuckConfig(object):
     check_policies = False
 
     def __init__(self):
-        pass
+        self.hub_server_config = HubServerConfig()
 
     @classmethod
     def from_nothing(self):

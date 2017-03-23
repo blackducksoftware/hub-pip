@@ -2,20 +2,20 @@ import requests
 
 from HubServerConfig import HubServerConfig
 
+JSPRING = "/j_spring_security_check"
+
 
 class HubApi(object):
 
-    JSPRING = "/j_spring_security_check"
-
     _session = None
-    config = None
+    config = None  # HubServerConfig
 
     def __init__(self, hub_server_config):
         self._session = requests.session()
         if isinstance(hub_server_config, HubServerConfig):
             self.config = hub_server_config
 
-    def _authenticate(self):
+    def authenticate(self):
         # Sprinkle cookies into the session
         content = {
             "j_username": self.config.hub_username,
@@ -28,7 +28,7 @@ class HubApi(object):
         path: str
         queryParameters: dict
         """
-        url = config.hub_url + path
+        url = self.build_url(path)
         response = None
         if(queryParameters):
             response = self._session.get(url)
@@ -36,11 +36,29 @@ class HubApi(object):
             response = self._session.get(url, queryParameters)
         return response
 
-    def make_post_request(self, path, content):
+    def make_post_request(self, path, content, headers=None):
         """
         path: str
         content: str or dict
         """
-        url = config.hub_url + path
-        response = self._session.post(url, content)
+        url = self.build_url(path)
+        response = self._session.post(url, content, headers=headers)
+        return response
+
+    def headers_json(self):
+        headers = {"content-type": "application/json"}
+        return headers
+
+    def headers_jsonld(self):
+        headers = {"content-type": "application/ld+json"}
+        return headers
+
+    def build_url(self, path):
+        url = "{}/{}".format(self.config.hub_url, path)
+        return url
+
+    def upload_bdio(self, bdio):
+        path = "api/bom-import"
+        url = self.build_url(path)
+        response = self._session.post(url, bdio, headers=self.headers_jsonld())
         return response
