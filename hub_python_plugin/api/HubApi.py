@@ -2,10 +2,9 @@ import requests
 
 from HubServerConfig import HubServerConfig
 
-JSPRING = "/j_spring_security_check"
-
-
 class HubApi(object):
+
+    JSPRING = "/j_spring_security_check"
 
     _session = None
     config = None  # HubServerConfig
@@ -72,14 +71,6 @@ class HubApi(object):
         url = "{}/{}".format(self.config.hub_url, path)
         return url
 
-    def authenticate(self):
-        # Sprinkle cookies into the session
-        content = {
-            "j_username": self.config.hub_username,
-            "j_password": self.config.hub_password
-        }
-        self.make_post_request(JSPRING, content)
-
     def upload_bdio(self, bdio):
         path = "api/bom-import"
         url = self.build_url(path)
@@ -87,3 +78,6 @@ class HubApi(object):
         proxies = self.get_proxies()
         response = self._session.post(url, bdio, headers=headers, proxies=proxies)
         return response
+
+    def check_policy(self):
+        pass
