@@ -1,4 +1,7 @@
-import ConfigParser
+try:
+    import configparser
+except:
+    from six.moves import configparser
 import distutils
 
 import pip

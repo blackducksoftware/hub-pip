@@ -22,7 +22,7 @@ setup(
     keywords="hub_python_plugin blackduck",
     url="https://github.com/blackducksoftware/hub-python-plugin",
     packages=[],
-    install_requires=["ConfigParser", "requests"],
+    install_requires=["configparser", "requests", "six"],
     long_description=read("README.md"),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
