@@ -1,6 +1,8 @@
 import requests
 
+from hub_python_plugin.BlackDuckSerializer import *
 from HubServerConfig import HubServerConfig
+
 
 class HubApi(object):
 
@@ -14,18 +16,23 @@ class HubApi(object):
         if isinstance(hub_server_config, HubServerConfig):
             self.config = hub_server_config
 
-    def make_get_request(self, path, queryParameters=None, headers=None, proxies=None):
+    def make_get_request(self, path, params=None, headers=None, proxies=None):
         """
         path: str
         queryParameters: dict
         """
         url = self.build_url(path)
+
+        if headers is None:
+            headers = self.headers_json()
+
         response = None
-        if(queryParameters):
-            response = self._session.get(url, headers=headers, proxies=proxies)
-        else:
+        if params:
             response = self._session.get(
-                url, queryParameters=queryParameters, headers=headers, proxies=proxies)
+                url, params=params, headers=headers, proxies=proxies)
+        else:
+            response = self._session.get(url, headers=headers, proxies=proxies)
+
         return response
 
     def make_post_request(self, path, content, headers=None, proxies=None):
@@ -73,3 +80,11 @@ class HubApi(object):
 
     def check_policy(self):
         pass
+
+    def remap_list(self, data, cls):
+        data = [map_to_object(item, cls) for item in data]
+        return data
+
+    def remap_object(self, data, cls):
+        data = map_to_object(data, cls)
+        return data

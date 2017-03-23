@@ -7,6 +7,7 @@ from setuptools import Command
 import BlackDuckPackage
 from api.AuthenticationDataService import AuthenticationDataService
 from api.LinkedDataDataService import LinkedDataDataService
+from api.ProjectDataService import ProjectDataService
 from api.HubApi import HubApi
 from bdio.Bdio import Bdio
 from BlackDuckConfig import BlackDuckConfig as Config
@@ -81,7 +82,9 @@ class BlackDuckCommand(Command):
         """Run command."""
 
         # The user's project's artifact and version
-        project_av = self.distribution.get_name() + "==" + self.distribution.get_version()
+        project_name = self.distribution.get_name()
+        project_version = self.distribution.get_version()
+        project_av =  project_name + "==" + project_version
 
         pkgs = get_raw_dependencies(project_av)
         pkg = pkgs.pop(0)  # The first dependency is itself
@@ -119,13 +122,18 @@ class BlackDuckCommand(Command):
         if self.config.deploy_hub_bdio:
             bdio_file_path = self.config.output_path + "/bdio.jsonld"
             assert os.path.exists(bdio_file_path)
-            bdio_file = open(bdio_file_path, "r")
-            bdio_data = bdio_file.read()
+            bdio_data = open(bdio_file_path, "r").read()
 
             api = self.get_authenticated_api()
             linked_data_data_service = LinkedDataDataService(api)
             linked_data_response = linked_data_data_service.upload_bdio(bdio_data)
             linked_data_response.raise_for_status()
+
+        if self.config.check_policies:
+            api = self.get_authenticated_api()
+            project_data_service = ProjectDataService(api)
+            response = project_data_service.get_paged_project_view(tree.name)
+            
 
     def get_authenticated_api(self):
         api = HubApi(self.config.hub_server_config)

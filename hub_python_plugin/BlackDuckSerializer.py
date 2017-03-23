@@ -1,9 +1,10 @@
+import inspect
 import json
 
 
 def from_json_file(json_file, cls):
     json_ = json_file.read()
-    return map_to_object(json_, cls)
+    return from_json_string(json_, cls)
 
 
 def from_json_string(json_string, cls):
@@ -14,9 +15,10 @@ def from_json_string(json_string, cls):
 def map_to_object(data, cls):  # data is a dictionary. cls is the class to convert to
     obj = cls()
     for k, v in data.items():
-        key = __exhange__(obj, k)
+        key = _exhange(obj, k)
         if key:
             setattr(obj, key, v)
+    _exhange_properties(obj)
     return obj
 
 
@@ -30,7 +32,7 @@ def map_from_object(obj):
     return dictionary
 
 
-def __exhange__(obj, key):
+def _exhange(obj, key):
     """Exchange provided key for mapped version"""
     if hasattr(obj, "attribute_map"):
         for k, v in obj.attribute_map.items():
@@ -38,4 +40,22 @@ def __exhange__(obj, key):
                 return k
     else:
         print(obj + " does not contain the attribute_map dictionary attribute")
+    return None
+
+
+def _exhange_properties(obj):
+    """Exchange provided key for schema class"""
+    if hasattr(obj, "attribute_schema"):
+        for k, v in obj.attribute_schema.items():
+            data = None
+            if isinstance(v, list) and v[0]:
+                if inspect.isclass(v[0]):
+                    data = [map_to_object(item, v[0]) for item in getattr(obj, k)]
+                    setattr(obj, k, data)
+            elif inpspect.isclass(v):
+                data = map_to_object(obj[k], v)
+                setattr(obj, k, data)
+            else:
+                raise Exception(
+                    "Value of attribute_schema is not a class or list of a single class")
     return None
