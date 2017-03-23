@@ -106,7 +106,6 @@ class BlackDuckCommand(Command):
             print(render_tree(tree))
 
         if self.config.create_hub_bdio:
-            print(self.config.code_location_name)
             bdio = Bdio(tree, self.config.code_location_name)
             bdio_data = bdio.generate_bdio()
             path = self.config.output_path

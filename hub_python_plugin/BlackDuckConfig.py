@@ -1,4 +1,5 @@
 import ConfigParser
+
 from api.HubServerConfig import HubServerConfig
 
 
@@ -39,11 +40,14 @@ class BlackDuckConfig(object):
 
         bd_config.hub_server_config.hub_proxy_host = config.get("Hub Connection", "Hub.Proxy.Host")
         bd_config.hub_server_config.hub_proxy_port = config.get("Hub Connection", "Hub.Proxy.Port")
-        bd_config.hub_server_config.hub_proxy_username = config.get("Hub Connection", "Hub.Proxy.Username")
-        bd_config.hub_server_config.hub_proxy_password = config.get("Hub Connection", "Hub.Proxy.Password")
+        bd_config.hub_server_config.hub_proxy_username = config.get(
+            "Hub Connection", "Hub.Proxy.Username")
+        bd_config.hub_server_config.hub_proxy_password = config.get(
+            "Hub Connection", "Hub.Proxy.Password")
 
         bd_config.hub_server_config.hub_timeout = config.get("Hub Connection", "Hub.Timeout")
-        bd_config.hub_server_config.hub_scan_timeout = config.get("Hub Connection", "Hub.ScanTimeout")
+        bd_config.hub_server_config.hub_scan_timeout = config.get(
+            "Hub Connection", "Hub.ScanTimeout")
 
         bd_config.code_location_name = config.get("Hub Connection", "Hub.CodeLocationName")
 
@@ -56,10 +60,13 @@ class BlackDuckConfig(object):
         bd_config.deploy_hub_bdio = config.getboolean("Options", "DeployHubBdio")
         bd_config.check_policies = config.getboolean("Options", "CheckPolicies")
 
-        bd_config.verify()
+        verify(bd_config)
+        verify(bd_config.hub_server_config)
         return bd_config
 
-    def verify(self):
-        for k, v in self.__dict__.items():
+
+def verify(obj):
+    if obj:
+        for k, v in obj.__dict__.items():
             if v == "None":
-                self.__dict__[k] = None
+                obj.__dict__[k] = None
