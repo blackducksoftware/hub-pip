@@ -11,13 +11,16 @@ from hub_python_plugin.BlackDuckSerializer import *
 class Bdio(object):
 
     tree = None
+    code_location_name = None
 
-    def __init__(self, tree):
+    def __init__(self, tree, code_location_name):
         self.tree = tree
+        self.code_location_name = code_location_name
+        if self.code_location_name is None:
+            self.code_location_name = tree.name + "/" + tree.version
 
     def generate_bdio(self):
         bdio = []
-
         bom = self._get_bom()
         project = self._get_node(BdioProject(), self.tree)
         components = self._get_components()
@@ -29,7 +32,7 @@ class Bdio(object):
 
     def _get_bom(self):
         bom = BillOfMaterials()
-        bom.name = self.tree.name + " Black Duck I/O Export"
+        bom.name = self.code_location_name + " Black Duck I/O Export"
         bom = map_from_object(bom)
         return bom
 

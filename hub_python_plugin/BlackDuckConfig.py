@@ -5,13 +5,14 @@ from api.HubServerConfig import HubServerConfig
 class BlackDuckConfig(object):
 
     hub_server_config = None
+    code_location_name = None
 
     output_path = "build/output"
 
     ignore_failure = False
-    flat_list = True
-    tree_list = True
-    create_hub_bdio = True
+    flat_list = False
+    tree_list = False
+    create_hub_bdio = False
     deploy_hub_bdio = False
     check_policies = False
 
@@ -27,6 +28,7 @@ class BlackDuckConfig(object):
         bd_config = BlackDuckConfig()
 
         config = ConfigParser.RawConfigParser()
+        config.allow_no_value = True
         config.read(config_file_path)
 
         bd_config.hub_server_config = HubServerConfig()
@@ -43,6 +45,8 @@ class BlackDuckConfig(object):
         bd_config.hub_server_config.hub_timeout = config.get("Hub Connection", "Hub.Timeout")
         bd_config.hub_server_config.hub_scan_timeout = config.get("Hub Connection", "Hub.ScanTimeout")
 
+        bd_config.code_location_name = config.get("Hub Connection", "Hub.CodeLocationName")
+
         bd_config.output_path = config.get("Paths", "OutputDirectory")
 
         bd_config.ignore_failure = config.getboolean("Options", "IgnoreFailure")
@@ -51,4 +55,11 @@ class BlackDuckConfig(object):
         bd_config.create_hub_bdio = config.getboolean("Options", "CreateHubBdio")
         bd_config.deploy_hub_bdio = config.getboolean("Options", "DeployHubBdio")
         bd_config.check_policies = config.getboolean("Options", "CheckPolicies")
+
+        bd_config.verify()
         return bd_config
+
+    def verify(self):
+        for k, v in self.__dict__.items():
+            if v == "None":
+                self.__dict__[k] = None

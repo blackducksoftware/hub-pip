@@ -36,13 +36,13 @@ class HubApi(object):
             response = self._session.get(url, queryParameters)
         return response
 
-    def make_post_request(self, path, content, headers=None):
+    def make_post_request(self, path, content, headers=None, proxies=None):
         """
         path: str
         content: str or dict
         """
         url = self.build_url(path)
-        response = self._session.post(url, content, headers=headers)
+        response = self._session.post(url, content, headers=headers, proxies=proxies)
         return response
 
     def headers_json(self):

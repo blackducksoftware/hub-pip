@@ -106,7 +106,8 @@ class BlackDuckCommand(Command):
             print(render_tree(tree))
 
         if self.config.create_hub_bdio:
-            bdio = Bdio(tree)
+            print(self.config.code_location_name)
+            bdio = Bdio(tree, self.config.code_location_name)
             bdio_data = bdio.generate_bdio()
             path = self.config.output_path
             if not os.path.exists(path):
@@ -121,8 +122,7 @@ class BlackDuckCommand(Command):
             bdio_data = bdio_file.read()
 
             api = HubApi(self.config.hub_server_config)
-            print(api.authenticate())
-
+            api.authenticate()
             response = api.upload_bdio(bdio_data)
             response.raise_for_status()
 
