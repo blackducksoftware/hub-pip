@@ -1,5 +1,6 @@
 from bdsplugin.api.model.MetadataView import MetadataView
 
+
 class ProjectView(object):
 
     description = None

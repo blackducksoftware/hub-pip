@@ -1,5 +1,6 @@
 from bdsplugin.api.model.ProjectVersionView import ProjectVersionView
 
+
 class PagedProjectVersionView(object):
 
     total_count = None

@@ -1,11 +1,11 @@
 
+from bdsplugin.BlackDuckPackage import BlackDuckPackage
+from bdsplugin.BlackDuckSerializer import *
 from bdsplugin.bdio.BdioComponent import BdioComponent
 from bdsplugin.bdio.BdioExternalIdentifier import BdioExternalIdentifier
 from bdsplugin.bdio.BdioProject import BdioProject
 from bdsplugin.bdio.BdioRelationship import BdioRelationship
 from bdsplugin.bdio.BillOfMaterials import BillOfMaterials
-from bdsplugin.BlackDuckPackage import BlackDuckPackage
-from bdsplugin.BlackDuckSerializer import *
 
 
 class Bdio(object):

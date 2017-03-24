@@ -1,5 +1,6 @@
 from bdsplugin.api.model.ProjectView import ProjectView
 
+
 class PagedProjectView(object):
 
     total_count = None
