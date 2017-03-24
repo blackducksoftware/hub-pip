@@ -10,8 +10,10 @@ class LinkedDataDataService(object):
 
     def upload_bdio(self, bdio):
         path = "api/bom-import"
-        url = self.rest_connection.build_url(path)
         headers = self.rest_connection.headers_jsonld()
         proxies = self.rest_connection.get_proxies()
-        response = self.rest_connection._session.post(url, bdio, headers=headers, proxies=proxies)
+        response = self.rest_connection.make_post_request(
+            path, bdio, headers=headers, proxies=proxies)
+        response.raise_for_status()
+        print("Black Duck I/O successfully deployed to the hub")
         return response

@@ -1,5 +1,6 @@
 import uuid
 
+
 class BillOfMaterials(object):
 
     id_ = None
@@ -12,7 +13,7 @@ class BillOfMaterials(object):
     attribute_map = {
         "id_": "@id",
         "type_": "@type",
-        "name": "name",
+        "name": "spdx:name",
         "external_id": "externalIdentifier",
         "relationships": "relationship",
         "specVersion": "specVersion"
