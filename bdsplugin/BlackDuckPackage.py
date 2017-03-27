@@ -34,12 +34,19 @@ class BlackDuckPackage(object):
         flattened = []
         for pkg in self.dependencies:
             pkg_id = pkg.render_id()
+            flattened.append(pkg)
+            flattened.extend(pkg.flatten())
+        flattened = self._remove_duplicates(flattened)
+        return flattened
+
+    def _remove_duplicates(self, packages):
+        unique = []
+        for package in packages:
             found = False
-            for flattened_pkg in flattened:
-                if flattened_pkg.render_id() == pkg_id:
+            for pkg in unique:
+                if package.render_id() == pkg.render_id():
                     found = True
                     break
             if not found:
-                flattened.append(pkg)
-                flattened.extend(pkg.flatten())
-        return flattened
+                unique.append(package)
+        return unique

@@ -4,14 +4,15 @@ import os
 import pip
 from setuptools import Command
 
+from bdsplugin.BlackDuckConfig import BlackDuckConfig
+from bdsplugin.BlackDuckCore import *
 import bdsplugin.BlackDuckPackage
 from bdsplugin.api.AuthenticationDataService import AuthenticationDataService
 from bdsplugin.api.LinkedDataDataService import LinkedDataDataService
 from bdsplugin.api.ProjectDataService import ProjectDataService
 from bdsplugin.api.RestConnection import RestConnection
 from bdsplugin.bdio.Bdio import Bdio
-from bdsplugin.BlackDuckConfig import BlackDuckConfig
-from bdsplugin.BlackDuckCore import *
+
 
 __version__ = "0.0.1"
 
@@ -104,7 +105,8 @@ class BlackDuckCommand(Command):
             flat_pkgs = list(set(pkgs))  # Remove duplicates
             print(render_flat(flat_pkgs))
 
-        tree = BlackDuckPackage(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
+        tree = BlackDuckPackage(pkg.key, pkg.project_name,
+                                pkg.version, pkg_dependencies)
 
         if self.config.tree_list:
             print(render_tree(tree))
@@ -116,7 +118,8 @@ class BlackDuckCommand(Command):
             if not os.path.exists(path):
                 os.makedirs(path)
             with open(path + "/bdio.jsonld", "w+") as bdio_file:
-                json.dump(bdio_data, bdio_file, ensure_ascii=False, indent=4, sort_keys=True)
+                json.dump(bdio_data, bdio_file, ensure_ascii=False,
+                          indent=4, sort_keys=True)
 
         if self.config.deploy_hub_bdio:
             bdio_file_path = self.config.output_path + "/bdio.jsonld"
@@ -125,15 +128,18 @@ class BlackDuckCommand(Command):
 
             rc = self.get_authenticated_api()
             linked_data_data_service = LinkedDataDataService(rc)
-            linked_data_response = linked_data_data_service.upload_bdio(bdio_data)
+            linked_data_response = linked_data_data_service.upload_bdio(
+                bdio_data)
             linked_data_response.raise_for_status()
 
         if self.config.check_policies:
             rc = self.get_authenticated_api()
             project_data_service = ProjectDataService(rc)
-            paged_project_view = project_data_service.get_paged_project_view(tree.name)
+            paged_project_view = project_data_service.get_paged_project_view(
+                tree.name)
             project_view = paged_project_view.items[0]
-            paged_version_view = project_data_service.get_paged_version_view(project_view)
+            paged_version_view = project_data_service.get_paged_version_view(
+                project_view)
             # print(vars(paged_version_view))
 
     def get_authenticated_api(self):

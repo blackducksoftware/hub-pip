@@ -36,7 +36,7 @@ class Bdio(object):
         bom = map_from_object(bom)
         return bom
 
-    def _get_node(self, node , package):
+    def _get_node(self, node, package):
         node.id_ = package.get_internal_id()
         node.name = package.name
         node.version = package.version
@@ -47,7 +47,10 @@ class Bdio(object):
 
     def _get_components(self):
         components = self.tree.flatten()
-        components = [self._get_node(BdioComponent(), pkg) for pkg in components]
+        for cmp in components:
+            print(cmp.get_internal_id())
+        components = [self._get_node(BdioComponent(), pkg)
+                      for pkg in components]
         return components
 
     def _get_relationships(self, package):
