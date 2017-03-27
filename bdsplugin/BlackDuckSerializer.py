@@ -14,11 +14,12 @@ def from_json_string(json_string, cls):
 
 def map_to_object(data, cls):  # data is a dictionary. cls is the class to convert to
     obj = cls()
-    for k, v in data.items():
-        key = _exhange(obj, k)
-        if key:
-            setattr(obj, key, v)
-    _exhange_properties(obj)
+    if data:
+        for k, v in data.items():
+            key = _exhange(obj, k)
+            if key:
+                setattr(obj, key, v)
+        _exhange_properties(obj)
     return obj
 
 
@@ -48,7 +49,8 @@ def _exhange_properties(obj):
             data = None
             if isinstance(v, list) and v[0]:
                 if inspect.isclass(v[0]):
-                    data = [map_to_object(item, v[0]) for item in getattr(obj, k)]
+                    data = [map_to_object(item, v[0])
+                            for item in getattr(obj, k)]
                     setattr(obj, k, data)
             elif inspect.isclass(v):
                 data = map_to_object(getattr(obj, k), v)

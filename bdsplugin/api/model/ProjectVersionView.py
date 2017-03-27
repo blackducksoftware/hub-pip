@@ -1,3 +1,6 @@
+from bdsplugin.api.model.MetadataView import MetadataView
+
+
 class ProjectVersionView(object):
 
     distribution = None
@@ -19,7 +22,11 @@ class ProjectVersionView(object):
         "released_on": "releasedOn",
         "source": "source",
         "version_name": "versionName",
-        "metadata": "_metadata"
+        "metadata": "_meta"
+    }
+
+    attribute_schema = {
+        "metadata": MetadataView
     }
 
     def __init__(self):

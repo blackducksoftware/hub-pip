@@ -11,6 +11,7 @@ from bdsplugin.api.AuthenticationDataService import AuthenticationDataService
 from bdsplugin.api.LinkedDataDataService import LinkedDataDataService
 from bdsplugin.api.ProjectDataService import ProjectDataService
 from bdsplugin.api.RestConnection import RestConnection
+from bdsplugin.api.VersionBomPolicyDataService import VersionBomPolicyDataService
 from bdsplugin.bdio.Bdio import Bdio
 
 
@@ -80,6 +81,9 @@ class BlackDuckCommand(Command):
             self.file_requirements = [r.req.name for r in file_requirements]
 
     def run(self):
+        self.execute()
+
+    def execute(self):
         """Run command."""
 
         # The user's project's artifact and version
@@ -135,12 +139,28 @@ class BlackDuckCommand(Command):
         if self.config.check_policies:
             rc = self.get_authenticated_api()
             project_data_service = ProjectDataService(rc)
-            paged_project_view = project_data_service.get_paged_project_view(
-                tree.name)
-            project_view = paged_project_view.items[0]
-            paged_version_view = project_data_service.get_paged_version_view(
-                project_view)
-            # print(vars(paged_version_view))
+            version_bom_policy_data_service = VersionBomPolicyDataService(rc)
+            project_version_view = project_data_service.get_project_version_view(
+                tree.name, tree.version)
+            policy_status = version_bom_policy_data_service.get_version_bom_policy_view(
+                project_version_view)
+
+            string_builder = []
+            string_builder.append("The Hub found: ")
+            string_builder.append(policy_status.get_in_violation())
+            string_builder.append(" components in violation, ")
+            string_builder.append(
+                policy_status.get_in_violation_but_overridden())
+            string_builder.append(
+                " components in violation, but overridden, and ")
+            string_builder.append(policy_status.get_not_in_violation())
+            string_builder.append(" components not in violation.")
+            policy_log = "".join(string_builder)
+            print(policy_log)
+
+            if policy_status.overall_status == "IN_VIOLATION":
+                raise Exception(
+                    "The Hub found:" + policy_status.get_in_violation() + " components in violation")
 
     def get_authenticated_api(self):
         rc = RestConnection(self.config.hub_server_config)

@@ -24,10 +24,15 @@ class ProjectDataService(object):
         response = rest_connection.make_get_request(path, params=params)
         response.raise_for_status()
         paged_project_view = response.json()
-        paged_project_view = rest_connection.remap_object(paged_project_view, PagedProjectView)
-        if paged_project_view.total_count < 1:
-            raise Exception("Project not found in the hub")
+        paged_project_view = rest_connection.remap_object(
+            paged_project_view, PagedProjectView)
         return paged_project_view
+
+    def get_project_view(self, project_name):
+        projects = self.get_paged_project_view(project_name)
+        if projects.total_count < 1:
+            raise Exception("Project not found in the hub")
+        return projects.items[0]
 
     def get_paged_version_view(self, project_view):
         rest_connection = self.rest_connection
@@ -45,3 +50,14 @@ class ProjectDataService(object):
         paged_project_version_view = rest_connection.remap_object(
             paged_project_version_view, PagedProjectVersionView)
         return paged_project_version_view
+
+    def get_project_version_view(self, project_name, project_version_name):
+        project_view = self.get_project_view(project_name)
+        project_version_views = self.get_paged_version_view(project_view)
+        project_version_view = None
+        if project_version_views.items:
+            for version_view in project_version_views.items:
+                if version_view.version_name == project_version_name:
+                    project_version_view = version_view
+                    break
+        return project_version_view
