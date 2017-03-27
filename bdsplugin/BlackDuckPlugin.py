@@ -13,6 +13,7 @@ from bdsplugin.api.LinkedDataDataService import LinkedDataDataService
 from bdsplugin.api.ProjectDataService import ProjectDataService
 from bdsplugin.api.RestConnection import RestConnection
 from bdsplugin.api.VersionBomPolicyDataService import VersionBomPolicyDataService
+from bdsplugin.api.WaitingDataService import WaitingDataService
 from bdsplugin.bdio.Bdio import Bdio
 
 
@@ -85,10 +86,9 @@ class BlackDuckCommand(Command):
         try:
             self.execute()
         except Exception as exception:
-            if self.config.ignore_failure:
-                traceback.print_exc()
-            else:
-                raise exception
+            traceback.print_exc()
+            if not self.config.ignore_failure:
+                raise Exception("bdsplugin failed to execute to completion")
 
     def execute(self):
         """Run command."""
@@ -139,16 +139,21 @@ class BlackDuckCommand(Command):
 
             rc = self.get_authenticated_api()
             linked_data_data_service = LinkedDataDataService(rc)
+
             linked_data_response = linked_data_data_service.upload_bdio(
                 bdio_data)
             linked_data_response.raise_for_status()
 
         if self.config.check_policies:
             rc = self.get_authenticated_api()
-            project_data_service = ProjectDataService(rc)
             version_bom_policy_data_service = VersionBomPolicyDataService(rc)
-            project_version_view = project_data_service.get_project_version_view(
+            waiting_data_service = WaitingDataService(rc, self.config)
+
+            project_version_view = waiting_data_service.wait_for_project(
                 tree.name, tree.version)
+
+            waiting_data_service.wait_for_scan(
+                project_version_view)
             policy_status = version_bom_policy_data_service.get_version_bom_policy_view(
                 project_version_view)
 

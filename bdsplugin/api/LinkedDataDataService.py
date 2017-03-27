@@ -9,6 +9,7 @@ class LinkedDataDataService(object):
         self.rest_connection = rest_connection
 
     def upload_bdio(self, bdio):
+        print("Deploying Black Duck I/O")
         path = "api/bom-import"
         headers = self.rest_connection.headers_jsonld()
         proxies = self.rest_connection.get_proxies()
