@@ -12,9 +12,8 @@ class LinkedDataDataService(object):
         print("Deploying Black Duck I/O")
         path = "api/bom-import"
         headers = self.rest_connection.headers_jsonld()
-        proxies = self.rest_connection.get_proxies()
         response = self.rest_connection.make_post_request(
-            path, bdio, headers=headers, proxies=proxies)
+            path, bdio, headers=headers)
         response.raise_for_status()
         print("Black Duck I/O successfully deployed to the hub")
         return response

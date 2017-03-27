@@ -21,11 +21,8 @@ class ProjectDataService(object):
         params = {
             "q": "name:" + project_name
         }
-        response = rest_connection.make_get_request(path, params=params)
-        response.raise_for_status()
-        paged_project_view = response.json()
-        paged_project_view = rest_connection.remap_object(
-            paged_project_view, PagedProjectView)
+        paged_project_view = rest_connection.get_paged_from_path(
+            PagedProjectView, path, params=params)
         return paged_project_view
 
     def get_project_view(self, project_name):

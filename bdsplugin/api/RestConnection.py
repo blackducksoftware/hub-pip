@@ -16,7 +16,21 @@ class RestConnection(object):
         if isinstance(hub_server_config, HubServerConfig):
             self.config = hub_server_config
 
-    def make_get_request(self, path, params=None, headers=None, proxies=None):
+    def get_paged_from_path(self, cls, path, params=None, headers=None):
+        url = self.build_url(path)
+        response_object = self.get_paged_from_link(
+            cls, url, params=params, headers=headers)
+        return response_object
+
+    def get_paged_from_link(self, cls, url, params=None, headers=None):
+        response = self.make_get_request_link(url, params=params)
+        response.raise_for_status()
+        response_json = response.json()
+        response_object = self.remap_object(
+            response_json, cls)
+        return response_object
+
+    def make_get_request(self, path, params=None, headers=None):
         """
         path: str
         queryParameters: dict
@@ -24,14 +38,10 @@ class RestConnection(object):
         url = self.build_url(path)
         return self.make_get_request_link(url, params=params, headers=headers, proxies=proxies)
 
-    def make_get_request_link(self, url, params=None, headers=None, proxies=None):
-        """
-        url: str
-        queryParameters: dict
-        """
+    def make_get_request_link(self, url, params=None, headers=None):
         if headers is None:
             headers = self.headers_json()
-
+        proxies = self.get_proxies()
         response = None
         if params:
             response = self._session.get(
@@ -41,13 +51,15 @@ class RestConnection(object):
 
         return response
 
-    def make_post_request(self, path, content, headers=None, proxies=None):
+    def make_post_request(self, path, content, headers=None):
         """
         path: str
         content: str or dict
         """
+        proxies = self.get_proxies()
         url = self.build_url(path)
-        response = self._session.post(url, content, headers=headers, proxies=proxies)
+        response = self._session.post(
+            url, content, headers=headers, proxies=proxies)
         return response
 
     def headers_json(self):
@@ -83,9 +95,6 @@ class RestConnection(object):
     def build_url(self, path):
         url = "{}/{}".format(self.config.hub_url, path)
         return url
-
-    def check_policy(self):
-        pass
 
     def remap_list(self, data, cls):
         data = [map_to_object(item, cls) for item in data]
