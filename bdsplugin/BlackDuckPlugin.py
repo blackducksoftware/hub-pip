@@ -1,5 +1,6 @@
 import json
 import os
+import traceback
 
 import pip
 from setuptools import Command
@@ -81,7 +82,13 @@ class BlackDuckCommand(Command):
             self.file_requirements = [r.req.name for r in file_requirements]
 
     def run(self):
-        self.execute()
+        try:
+            self.execute()
+        except Exception as exception:
+            if self.config.ignore_failure:
+                traceback.print_exc()
+            else:
+                raise exception
 
     def execute(self):
         """Run command."""
@@ -160,7 +167,7 @@ class BlackDuckCommand(Command):
 
             if policy_status.overall_status == "IN_VIOLATION":
                 raise Exception(
-                    "The Hub found:" + policy_status.get_in_violation() + " components in violation")
+                    "The Hub found: " + policy_status.get_in_violation() + " components in violation")
 
     def get_authenticated_api(self):
         rc = RestConnection(self.config.hub_server_config)
