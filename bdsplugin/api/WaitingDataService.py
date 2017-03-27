@@ -22,12 +22,10 @@ class WaitingDataService(object):
         project_version_view = None
         hub_timeout = time.time() + self.config.hub_server_config.hub_timeout
         while project_version_view is None and time.time() < hub_timeout:
-            try:
-                 # This will throw exception if the project isn't there
-                project_version_view = project_data_service.get_project_version_view(
-                    project_name, project_version_name)
-            except:
-                time.sleep(0.5)
+            project_version_view = project_data_service.get_project_version_view(
+                project_name, project_version_name)
+            if project_version_view is None:
+                time.sleep(2)
         if project_version_view is None:
             raise Exception("The hub timed out on project creation")
         return project_version_view

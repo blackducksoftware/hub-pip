@@ -14,5 +14,7 @@ class AuthenticationDataService(object):
             "j_username": self.rest_connection.config.hub_username,
             "j_password": self.rest_connection.config.hub_password
         }
-        response = self.rest_connection.make_post_request(self.rest_connection.JSPRING, credentials)
+        response = self.rest_connection.make_post_request(
+            self.rest_connection.JSPRING, credentials)
+        response.raise_for_status()
         return response

@@ -21,9 +21,6 @@ class VersionBomPolicyDataService(object):
         if policy_status_link is None:
             raise Exception("No metadata found in project version view")
 
-        response = rest_connection.make_get_request_link(policy_status_link)
-        response.raise_for_status()
-        version_bom_policy_view = response.json()
-        version_bom_policy_view = rest_connection.remap_object(
-            version_bom_policy_view, VersionBomPolicyStatusView)
+        version_bom_policy_view = rest_connection.get_view_from_link(
+            VersionBomPolicyStatusView, policy_status_link)
         return version_bom_policy_view

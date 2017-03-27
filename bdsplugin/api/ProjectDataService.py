@@ -21,14 +21,14 @@ class ProjectDataService(object):
         params = {
             "q": "name:" + project_name
         }
-        paged_project_view = rest_connection.get_paged_from_path(
+        paged_project_view = rest_connection.get_view_from_path(
             PagedProjectView, path, params=params)
         return paged_project_view
 
     def get_project_view(self, project_name):
         projects = self.get_paged_project_view(project_name)
         if projects.total_count < 1:
-            raise Exception("Project not found in the hub")
+            return None
         return projects.items[0]
 
     def get_paged_version_view(self, project_view):
@@ -40,16 +40,14 @@ class ProjectDataService(object):
                 break
         if version_link is None:
             raise Exception("No metadata found in project view")
-
-        response = rest_connection.make_get_request_link(version_link)
-        response.raise_for_status()
-        paged_project_version_view = response.json()
-        paged_project_version_view = rest_connection.remap_object(
-            paged_project_version_view, PagedProjectVersionView)
+        paged_project_version_view = rest_connection.get_view_from_link(
+            PagedProjectVersionView, version_link)
         return paged_project_version_view
 
     def get_project_version_view(self, project_name, project_version_name):
         project_view = self.get_project_view(project_name)
+        if project_view is None:
+            return None
         project_version_views = self.get_paged_version_view(project_view)
         project_version_view = None
         if project_version_views.items:

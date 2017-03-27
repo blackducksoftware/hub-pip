@@ -16,15 +16,14 @@ class RestConnection(object):
         if isinstance(hub_server_config, HubServerConfig):
             self.config = hub_server_config
 
-    def get_paged_from_path(self, cls, path, params=None, headers=None):
+    def get_view_from_path(self, cls, path, params=None, headers=None):
         url = self.build_url(path)
-        response_object = self.get_paged_from_link(
+        response_object = self.get_view_from_link(
             cls, url, params=params, headers=headers)
         return response_object
 
-    def get_paged_from_link(self, cls, url, params=None, headers=None):
+    def get_view_from_link(self, cls, url, params=None, headers=None):
         response = self.make_get_request_link(url, params=params)
-        response.raise_for_status()
         response_json = response.json()
         response_object = self.remap_object(
             response_json, cls)
@@ -39,6 +38,8 @@ class RestConnection(object):
         return self.make_get_request_link(url, params=params, headers=headers, proxies=proxies)
 
     def make_get_request_link(self, url, params=None, headers=None):
+        # TODO: check to make sure its a valid url and not a path
+
         if headers is None:
             headers = self.headers_json()
         proxies = self.get_proxies()
@@ -48,7 +49,7 @@ class RestConnection(object):
                 url, params=params, headers=headers, proxies=proxies)
         else:
             response = self._session.get(url, headers=headers, proxies=proxies)
-
+        response.raise_for_status()
         return response
 
     def make_post_request(self, path, content, headers=None):

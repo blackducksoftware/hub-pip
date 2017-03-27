@@ -123,6 +123,7 @@ class BlackDuckCommand(Command):
             print(render_tree(tree))
 
         if self.config.create_hub_bdio:
+            print("Generating Black Duck I/O")
             bdio = Bdio(tree, self.config.code_location_name)
             bdio_data = bdio.generate_bdio()
             path = self.config.output_path
@@ -131,8 +132,10 @@ class BlackDuckCommand(Command):
             with open(path + "/bdio.jsonld", "w+") as bdio_file:
                 json.dump(bdio_data, bdio_file, ensure_ascii=False,
                           indent=4, sort_keys=True)
+            print("Successfully generated Black Duck I/O")
 
         if self.config.deploy_hub_bdio:
+            print("Deploying Black Duck I/O")
             bdio_file_path = self.config.output_path + "/bdio.jsonld"
             assert os.path.exists(bdio_file_path)
             bdio_data = open(bdio_file_path, "r").read()
@@ -142,15 +145,17 @@ class BlackDuckCommand(Command):
 
             linked_data_response = linked_data_data_service.upload_bdio(
                 bdio_data)
-            linked_data_response.raise_for_status()
+            print("Black Duck I/O successfully deployed to the hub")
 
         if self.config.check_policies:
             rc = self.get_authenticated_api()
             version_bom_policy_data_service = VersionBomPolicyDataService(rc)
             waiting_data_service = WaitingDataService(rc, self.config)
 
+            print("Waiting for project to be created")
             project_version_view = waiting_data_service.wait_for_project(
                 tree.name, tree.version)
+            print("Project created")
 
             waiting_data_service.wait_for_scan(
                 project_version_view)

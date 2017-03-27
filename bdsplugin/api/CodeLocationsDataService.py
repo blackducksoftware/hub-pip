@@ -22,9 +22,6 @@ class CodeLocationsDataService(object):
             raise Exception(
                 "codelocation metadata not found in project version view")
 
-        response = rest_connection.make_get_request_link(code_location_link)
-        response.raise_for_status()
-        paged_code_location_view = response.json()
-        paged_code_location_view = rest_connection.remap_object(
-            paged_code_location_view, PagedCodeLocationView)
+        paged_code_location_view = rest_connection.get_view_from_link(
+            PagedCodeLocationView, code_location_link)
         return paged_code_location_view
