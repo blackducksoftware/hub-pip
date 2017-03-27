@@ -47,8 +47,6 @@ class Bdio(object):
 
     def _get_components(self):
         components = self.tree.flatten()
-        for cmp in components:
-            print(cmp.get_internal_id())
         components = [self._get_node(BdioComponent(), pkg)
                       for pkg in components]
         return components
