@@ -3,11 +3,20 @@ try:
 except:
     from six.moves import configparser
 import distutils
+import os
 
 import pip
 import pkg_resources
 
 from bdsplugin.BlackDuckPackage import BlackDuckPackage
+
+
+def get_file_path(file_name, output_path, extension=None):
+    file_path = output_path + "/"
+    file_path += file_name
+    if extension:
+        file_path += extension
+    return file_path
 
 
 def get_raw_dependencies(package):
@@ -68,3 +77,19 @@ def render_flat(flat_list):
     for node in flat_list:
         result += node.name + "==" + node.version + "\n"
     return result
+
+
+def generate_flat_list(tree, output_path=None):
+    flat_pkgs = tree.flatten()  # Remove duplicates
+    flattened = render_flat(flat_pkgs)
+    if output_path:
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
+        output_file_path = get_file_path(tree.name, output_path, "_flat.txt")
+        with open(output_file_path, "w+") as flat_list_file:
+            flat_list_file.write(flattened.encode("utf8"))
+    return flattened
+
+
+def generate_tree_list(tree, output_file_path):
+    pass

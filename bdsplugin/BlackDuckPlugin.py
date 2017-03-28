@@ -116,8 +116,8 @@ class BlackDuckCommand(Command):
                                 pkg.version, pkg_dependencies)
 
         if self.config.flat_list:
-            flat_pkgs = tree.flatten()  # Remove duplicates
-            print(render_flat(flat_pkgs))
+            flattened = generate_flat_list(tree, self.config.output_path)
+            print(flattened)
 
         if self.config.tree_list:
             print(render_tree(tree))
@@ -129,14 +129,14 @@ class BlackDuckCommand(Command):
             path = self.config.output_path
             if not os.path.exists(path):
                 os.makedirs(path)
-            with open(path + "/bdio.jsonld", "w+") as bdio_file:
+            with open(get_file_path(tree.name, path, ".jsonld"), "w+") as bdio_file:
                 json.dump(bdio_data, bdio_file, ensure_ascii=False,
                           indent=4, sort_keys=True)
             print("Successfully generated Black Duck I/O")
 
         if self.config.deploy_hub_bdio:
             print("Deploying Black Duck I/O")
-            bdio_file_path = self.config.output_path + "/bdio.jsonld"
+            bdio_file_path = self.config.output_path + "/" + tree.name + ".jsonld"
             assert os.path.exists(bdio_file_path)
             bdio_data = open(bdio_file_path, "r").read()
 
