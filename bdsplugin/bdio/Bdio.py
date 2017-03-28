@@ -17,7 +17,8 @@ class Bdio(object):
         self.tree = tree
         self.code_location_name = code_location_name
         if self.code_location_name is None:
-            self.code_location_name = tree.name + "/" + tree.version
+            self.code_location_name = tree.name + "/" + \
+                tree.version + " Black Duck I/O Export"
 
     def generate_bdio(self):
         bdio = []
@@ -32,7 +33,7 @@ class Bdio(object):
 
     def _get_bom(self):
         bom = BillOfMaterials()
-        bom.name = self.code_location_name + " Black Duck I/O Export"
+        bom.name = self.code_location_name
         bom = map_from_object(bom)
         return bom
 
