@@ -84,9 +84,8 @@ class BlackDuckCommand(Command):
         if self.requirements_path:
             assert os.path.exists(self.requirements_path), (
                 "The requirements file %s does not exist." % self.requirements_path)
-            file_requirements = pip.req.parse_requirements(
+            self.file_requirements = pip.req.parse_requirements(
                 self.requirements_path, session=pip.download.PipSession())
-            self.file_requirements = [r.req.name for r in file_requirements]
 
     def run(self):
         try:
@@ -111,17 +110,18 @@ class BlackDuckCommand(Command):
         pkg_dependencies = get_dependencies(pkg, raise_on_fail)
 
         if self.file_requirements:
-            for req in self.file_requirements:  # req is the project_av
-                pkgs.extend(get_raw_dependencies(req, raise_on_fail))
-                # Returns a pip dependency object
-                best_match = get_best(req, raise_on_fail)
-                if best_match:
-                    other_requirements = get_dependencies(
-                        best_match, raise_on_fail)  # Array of Packages
-                    new_package = BlackDuckPackage(
-                        best_match.key, best_match.project_name, best_match.version, other_requirements)
-                    # Add found dependencies
-                    pkg_dependencies.append(new_package)
+            for req in self.file_requirements:
+                req_package = get_best(req.req, raise_on_fail)
+                found = False
+                for existing in pkg_dependencies:
+                    if existing.key.lower() == req_package.key.lower():
+                        found = True
+                        break
+                if not found:
+                    req_dependencies = get_dependencies(pkg, raise_on_fail)
+                    req_package = BlackDuckPackage(
+                        req_package.key, req_package.project_name, req_package.version, req_dependencies)
+                    pkg_dependencies.append(req_package)
 
         tree = BlackDuckPackage(pkg.key, pkg.project_name,
                                 pkg.version, pkg_dependencies)

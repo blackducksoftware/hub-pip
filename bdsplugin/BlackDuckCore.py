@@ -1,9 +1,11 @@
 import distutils
 import json
 import os
+import tempfile
 
 import pip
 import pkg_resources
+from setuptools.package_index import PackageIndex
 
 from bdsplugin.BlackDuckPackage import BlackDuckPackage
 
@@ -37,11 +39,11 @@ def get_raw_dependencies(package, raise_on_fail):
         )
 
         dependencies = pkg_resources.working_set.resolve(
-            [project_requirement], env=environment
-        )
+            [project_requirement], env=environment)
     except Exception:
         if raise_on_fail:
             raise Exception(message + package)
+        print(message + package)
     return dependencies
 
 
@@ -58,12 +60,15 @@ def get_dependencies(pkg, raise_on_fail):
     return dependencies
 
 
-def get_best(dependency, raise_on_fail):  # Can take in an object with a key or just a string
+# Can take in an object with a key or just a string
+def get_best(dependency, raise_on_fail):
     installed = pip.get_installed_distributions(
         local_only=False, user_only=False)
 
     if hasattr(dependency, "key"):
         dependency = dependency.key
+    elif hasattr(dependency, "name"):
+        dependency = dependency.name
 
     for pkg in installed:
         if pkg.key.lower() == dependency.lower():
@@ -71,8 +76,8 @@ def get_best(dependency, raise_on_fail):  # Can take in an object with a key or 
 
     if raise_on_fail == True:
         raise Exception(message + dependency)
-
     print message + dependency
+
     return None
 
 
