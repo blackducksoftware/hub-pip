@@ -112,12 +112,12 @@ class BlackDuckCommand(Command):
                     best_match.key, best_match.project_name, best_match.version, other_requirements)
                 pkg_dependencies.append(new_package)  # Add found dependencies
 
-        if self.config.flat_list:
-            flat_pkgs = list(set(pkgs))  # Remove duplicates
-            print(render_flat(flat_pkgs))
-
         tree = BlackDuckPackage(pkg.key, pkg.project_name,
                                 pkg.version, pkg_dependencies)
+
+        if self.config.flat_list:
+            flat_pkgs = tree.flatten()  # Remove duplicates
+            print(render_flat(flat_pkgs))
 
         if self.config.tree_list:
             print(render_tree(tree))

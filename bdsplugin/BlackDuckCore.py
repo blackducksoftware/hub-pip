@@ -33,7 +33,8 @@ def get_dependencies(pkg):
         pkg = get_best(dependency)
         if pkg:
             pkg_dependencies = get_dependencies(pkg)
-            package = BlackDuckPackage(pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
+            package = BlackDuckPackage(
+                pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
             dependencies.append(package)
     return dependencies
 
@@ -61,10 +62,9 @@ def render_tree(root, layer=1):
     return result
 
 
-def render_flat(pkgs):
+def render_flat(flat_list):
     result = ""
-    pkgs.sort(key=lambda x: x.key)
-    for pkg in pkgs:
-        full_pkg = get_best(pkg)
-        result += full_pkg.key + "==" + full_pkg.version + "\n"
+    flat_list.sort(key=lambda x: x.name)
+    for node in flat_list:
+        result += node.name + "==" + node.version + "\n"
     return result
