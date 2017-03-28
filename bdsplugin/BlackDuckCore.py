@@ -60,7 +60,7 @@ def get_best(dependency):  # Can take in an object with a key or just a string
         dependency = dependency.key
 
     for pkg in installed:
-        if pkg.key == dependency or pkg.key.lower() == dependency.lower():
+        if pkg.key.lower() == dependency.lower():
             return pkg
     print("No match found for: " + dependency)
     return None
