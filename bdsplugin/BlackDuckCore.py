@@ -1,14 +1,17 @@
-try:
-    import configparser
-except:
-    from six.moves import configparser
 import distutils
+import json
 import os
 
 import pip
 import pkg_resources
 
 from bdsplugin.BlackDuckPackage import BlackDuckPackage
+
+
+try:
+    import configparser
+except:
+    from six.moves import configparser
 
 
 def get_file_path(file_name, output_path, extension=None):
@@ -83,13 +86,30 @@ def generate_flat_list(tree, output_path=None):
     flat_pkgs = tree.flatten()  # Remove duplicates
     flattened = render_flat(flat_pkgs)
     if output_path:
-        if not os.path.exists(output_path):
-            os.makedirs(output_path)
-        output_file_path = get_file_path(tree.name, output_path, "_flat.txt")
-        with open(output_file_path, "w+") as flat_list_file:
-            flat_list_file.write(flattened.encode("utf8"))
+        _generate_file(flattened, tree.name, output_path, "_flat.txt")
     return flattened
 
 
-def generate_tree_list(tree, output_file_path):
-    pass
+def generate_tree_list(tree, output_path):
+    tree_list = render_tree(tree)
+    if output_path:
+        _generate_file(tree_list, tree.name, output_path, "_tree.txt")
+    return tree_list
+
+
+def generate_bdio(bdio_data, project_name=None, output_path=None):
+    bdio_str = json.dumps(bdio_data, indent=4, sort_keys=True)
+    if output_path:
+        file_name = "bdio"
+        if project_name:
+            file_name = project_name
+        _generate_file(bdio_str, file_name, output_path, ".jsonld")
+    return bdio_str
+
+
+def _generate_file(data, file_name, output_path, file_extension=None):
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+    output_file_path = get_file_path(file_name, output_path, file_extension)
+    with open(output_file_path, "w+") as output_file:
+        output_file.write(data.encode("utf8"))

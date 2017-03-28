@@ -1,5 +1,3 @@
-import json
-import os
 import traceback
 
 import pip
@@ -120,18 +118,15 @@ class BlackDuckCommand(Command):
             print(flattened)
 
         if self.config.tree_list:
-            print(render_tree(tree))
+            tree_list = generate_tree_list(tree, self.config.output_path)
+            print(tree_list)
 
         if self.config.create_hub_bdio:
             print("Generating Black Duck I/O")
             bdio = Bdio(tree, self.config.code_location_name)
             bdio_data = bdio.generate_bdio()
-            path = self.config.output_path
-            if not os.path.exists(path):
-                os.makedirs(path)
-            with open(get_file_path(tree.name, path, ".jsonld"), "w+") as bdio_file:
-                json.dump(bdio_data, bdio_file, ensure_ascii=False,
-                          indent=4, sort_keys=True)
+            bdio_str = generate_bdio(
+                bdio_data, project_name=tree.name, output_path=self.config.output_path)
             print("Successfully generated Black Duck I/O")
 
         if self.config.deploy_hub_bdio:
