@@ -14,6 +14,9 @@ except:
     from six.moves import configparser
 
 
+message = "No matching packages found for declared dependency: "
+
+
 def get_file_path(file_name, output_path, extension=None):
     file_path = output_path + "/"
     file_path += file_name
@@ -22,37 +25,40 @@ def get_file_path(file_name, output_path, extension=None):
     return file_path
 
 
-def get_raw_dependencies(package):
-    project_requirement = pkg_resources.Requirement.parse(package)
+def get_raw_dependencies(package, raise_on_fail):
+    dependencies = []
+    try:
+        project_requirement = pkg_resources.Requirement.parse(package)
 
-    environment = pkg_resources.Environment(
-        distutils.sysconfig.get_python_lib(),
-        platform=None,
-        python=None
-    )
+        environment = pkg_resources.Environment(
+            distutils.sysconfig.get_python_lib(),
+            platform=None,
+            python=None
+        )
 
-    dependencies = pkg_resources.working_set.resolve(
-        [project_requirement], env=environment
-    )
-
-    #dependencies = pkg_resources.working_set.find(project_requirement)
+        dependencies = pkg_resources.working_set.resolve(
+            [project_requirement], env=environment
+        )
+    except Exception:
+        if raise_on_fail:
+            raise Exception(message + package)
     return dependencies
 
 
-def get_dependencies(pkg):
+def get_dependencies(pkg, raise_on_fail):
     dependencies = []
 
     for dependency in pkg.requires():
-        pkg = get_best(dependency)
+        pkg = get_best(dependency, raise_on_fail)
         if pkg:
-            pkg_dependencies = get_dependencies(pkg)
+            pkg_dependencies = get_dependencies(pkg, raise_on_fail)
             package = BlackDuckPackage(
                 pkg.key, pkg.project_name, pkg.version, pkg_dependencies)
             dependencies.append(package)
     return dependencies
 
 
-def get_best(dependency):  # Can take in an object with a key or just a string
+def get_best(dependency, raise_on_fail):  # Can take in an object with a key or just a string
     installed = pip.get_installed_distributions(
         local_only=False, user_only=False)
 
@@ -62,7 +68,11 @@ def get_best(dependency):  # Can take in an object with a key or just a string
     for pkg in installed:
         if pkg.key.lower() == dependency.lower():
             return pkg
-    print("No match found for: " + dependency)
+
+    if raise_on_fail == True:
+        raise Exception(message + dependency)
+
+    print message + dependency
     return None
 
 

@@ -25,14 +25,17 @@ class BlackDuckCommand(Command):
     user_options = [
         ("config-path=", "c", "Path to Black Duck Configuration file"),
         ("requirements-path=", "r", "Path to your requirements.txt file"),
-        ("flat-list=", "f", "Generate flat list"),
-        ("tree-list=", "t", "Generate tree list"),
+        ("flat-list=", "f", "True to generate flat list"),
+        ("tree-list=", "t", "True to Generate tree list"),
         ("hub-url=", "h", "The url to use for bdio deployment"),
         ("hub-username=", "u", "The username to use for bdio deployment"),
         ("hub-password=", "p", "The password to use for bdio deployment"),
+        ("raise-on-matching-fail=", "m",
+         "True to raise exception when finding a declared package fails"),
     ]
 
     config = None
+    raise_on_matching_fail = None
 
     def initialize_options(self):
         """Set default values for options."""
@@ -45,6 +48,7 @@ class BlackDuckCommand(Command):
         self.hub_url = None
         self.hub_username = None
         self.hub_password = None
+        self.raise_on_matching_fail = False
 
     def finalize_options(self):
         """Post-process options."""
@@ -62,6 +66,10 @@ class BlackDuckCommand(Command):
 
         if self.tree_list is not None:
             self.config.tree_list = string_to_boolean(self.tree_list)
+
+        if self.raise_on_matching_fail is not None:
+            self.raise_on_matching_fail = string_to_boolean(
+                self.raise_on_matching_fail)
 
         if self.hub_url is not None:
             self.config.hub_server_config.hub_url = self.hub_url
@@ -86,27 +94,30 @@ class BlackDuckCommand(Command):
         except Exception as exception:
             traceback.print_exc()
             if not self.config.ignore_failure:
-                raise Exception("bdsplugin failed to execute to completion")
+                raise exception
 
     def execute(self):
         """Run command."""
+
+        raise_on_fail = self.raise_on_matching_fail
 
         # The user's project's artifact and version
         project_name = self.distribution.get_name()
         project_version = self.distribution.get_version()
         project_av = project_name + "==" + project_version
 
-        pkgs = get_raw_dependencies(project_av)
+        pkgs = get_raw_dependencies(project_av, raise_on_fail)
         pkg = pkgs.pop(0)  # The first dependency is itself
-        pkg_dependencies = get_dependencies(pkg)
+        pkg_dependencies = get_dependencies(pkg, raise_on_fail)
 
         if self.file_requirements:
             for req in self.file_requirements:  # req is the project_av
-                pkgs.extend(get_raw_dependencies(req))
-                best_match = get_best(req)  # Returns a pip dependency object
+                pkgs.extend(get_raw_dependencies(req, raise_on_fail))
+                # Returns a pip dependency object
+                best_match = get_best(req, raise_on_fail)
                 if best_match:
                     other_requirements = get_dependencies(
-                        best_match)  # Array of Packages
+                        best_match, raise_on_fail)  # Array of Packages
                     new_package = BlackDuckPackage(
                         best_match.key, best_match.project_name, best_match.version, other_requirements)
                     # Add found dependencies
@@ -185,6 +196,10 @@ class BlackDuckCommand(Command):
 
 
 def string_to_boolean(string):
+    if string == True:
+        return True
+    if string == False:
+        return False
     if string == "True":
         return True
     elif string == "False":
