@@ -104,11 +104,13 @@ class BlackDuckCommand(Command):
             for req in self.file_requirements:  # req is the project_av
                 pkgs.extend(get_raw_dependencies(req))
                 best_match = get_best(req)  # Returns a pip dependency object
-                other_requirements = get_dependencies(
-                    best_match)  # Array of Packages
-                new_package = BlackDuckPackage(
-                    best_match.key, best_match.project_name, best_match.version, other_requirements)
-                pkg_dependencies.append(new_package)  # Add found dependencies
+                if best_match:
+                    other_requirements = get_dependencies(
+                        best_match)  # Array of Packages
+                    new_package = BlackDuckPackage(
+                        best_match.key, best_match.project_name, best_match.version, other_requirements)
+                    # Add found dependencies
+                    pkg_dependencies.append(new_package)
 
         tree = BlackDuckPackage(pkg.key, pkg.project_name,
                                 pkg.version, pkg_dependencies)

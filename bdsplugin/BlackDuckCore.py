@@ -41,6 +41,7 @@ def get_raw_dependencies(package):
 
 def get_dependencies(pkg):
     dependencies = []
+
     for dependency in pkg.requires():
         pkg = get_best(dependency)
         if pkg:
@@ -59,7 +60,7 @@ def get_best(dependency):  # Can take in an object with a key or just a string
         dependency = dependency.key
 
     for pkg in installed:
-        if pkg.key == dependency:
+        if pkg.key.lower() == dependency.lower():
             return pkg
     print("No match found for: " + dependency)
     return None
