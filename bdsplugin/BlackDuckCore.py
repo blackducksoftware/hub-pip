@@ -76,7 +76,7 @@ def get_best(dependency, raise_on_fail):
 
     if raise_on_fail == True:
         raise Exception(message + dependency)
-    print message + dependency
+    print (message + dependency)
 
     return None
 
