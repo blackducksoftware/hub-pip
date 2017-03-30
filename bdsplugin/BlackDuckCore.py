@@ -128,4 +128,4 @@ def _generate_file(data, file_name, output_path, file_extension=None):
         os.makedirs(output_path)
     output_file_path = get_file_path(file_name, output_path, file_extension)
     with open(output_file_path, "w+") as output_file:
-        output_file.write(data.encode("utf8"))
+        output_file.write(data)
