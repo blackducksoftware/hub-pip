@@ -114,7 +114,7 @@ class BlackDuckCommand(Command):
                 req_package = get_best(req.req, raise_on_fail)
                 found = False
                 for existing in pkg_dependencies:
-                    if existing.key.lower() == req_package.key.lower():
+                    if existing and existing.key.lower() == req_package.key.lower():
                         found = True
                         break
                 if not found:
