@@ -75,6 +75,7 @@ class BlackDuckCommand(Command):
             self.config.hub_server_config.hub_url = self.hub_url
 
         if self.hub_username is not None:
+
             self.config.hub_server_config.hub_username = self.hub_username
 
         if self.hub_password is not None:
@@ -128,11 +129,11 @@ class BlackDuckCommand(Command):
 
         if self.config.flat_list:
             flattened = generate_flat_list(tree, self.config.output_path)
-            print(flattened)
+            # print(flattened)
 
         if self.config.tree_list:
             tree_list = generate_tree_list(tree, self.config.output_path)
-            print(tree_list)
+            # print(tree_list)
 
         if self.config.create_hub_bdio:
             print("Generating Black Duck I/O")
@@ -148,7 +149,6 @@ class BlackDuckCommand(Command):
             assert os.path.exists(bdio_file_path)
             with open(bdio_file_path, "r") as bdio_file:
                 bdio_data = bdio_file.read()
-
             rc = self.get_authenticated_api()
             linked_data_data_service = LinkedDataDataService(rc)
 

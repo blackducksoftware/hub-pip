@@ -6,7 +6,7 @@ from hub_pip.api.HubServerConfig import HubServerConfig
 
 class RestConnection(object):
 
-    JSPRING = "/j_spring_security_check"
+    JSPRING = "j_spring_security_check"
 
     _session = None
     config = None  # HubServerConfig
@@ -53,10 +53,6 @@ class RestConnection(object):
         return response
 
     def make_post_request(self, path, content, headers=None):
-        """
-        path: str
-        content: str or dict
-        """
         proxies = self.get_proxies()
         url = self.build_url(path)
         response = self._session.post(

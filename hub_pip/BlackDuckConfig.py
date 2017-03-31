@@ -55,7 +55,7 @@ class BlackDuckConfig(object):
         password = bd_config.hub_server_config.hub_password
         p_host = bd_config.hub_server_config.hub_proxy_host
         p_port = bd_config.hub_server_config.hub_proxy_port
-        p_username = bd_config.hub_server_config.hub_username
+        p_username = bd_config.hub_server_config.hub_proxy_username
         p_password = bd_config.hub_server_config.hub_proxy_password
         timeout = bd_config.hub_server_config.hub_timeout
         s_timeout = bd_config.hub_server_config.hub_scan_timeout
@@ -96,7 +96,7 @@ class BlackDuckConfig(object):
         bd_config.hub_server_config.hub_password = password
         bd_config.hub_server_config.hub_proxy_host = p_host
         bd_config.hub_server_config.hub_proxy_port = p_port
-        bd_config.hub_server_config.hub_username = p_username
+        bd_config.hub_server_config.hub_proxy_username = p_username
         bd_config.hub_server_config.hub_proxy_password = p_password
         bd_config.hub_server_config.hub_timeout = timeout
         bd_config.hub_server_config.hub_scan_timeout = s_timeout
