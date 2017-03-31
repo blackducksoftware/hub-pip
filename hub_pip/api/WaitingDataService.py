@@ -1,10 +1,10 @@
 import json
 import time
 
-from bdsplugin.api.CodeLocationsDataService import CodeLocationsDataService
-from bdsplugin.api.ProjectDataService import ProjectDataService
-from bdsplugin.api.RestConnection import RestConnection
-from bdsplugin.api.ScanSummaryDataService import ScanSummaryDataService
+from hub_pip.api.CodeLocationsDataService import CodeLocationsDataService
+from hub_pip.api.ProjectDataService import ProjectDataService
+from hub_pip.api.RestConnection import RestConnection
+from hub_pip.api.ScanSummaryDataService import ScanSummaryDataService
 
 
 class WaitingDataService(object):

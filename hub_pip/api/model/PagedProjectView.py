@@ -1,7 +1,7 @@
-from bdsplugin.api.model.ScanSummaryView import ScanSummaryView
+from hub_pip.api.model.ProjectView import ProjectView
 
 
-class PagedScanSummaryView(object):
+class PagedProjectView(object):
 
     total_count = None
     items = None
@@ -12,7 +12,7 @@ class PagedScanSummaryView(object):
     }
 
     attribute_schema = {
-        "items": [ScanSummaryView]
+        "items": [ProjectView]
     }
 
     def __init__(self):

@@ -1,7 +1,7 @@
-from bdsplugin.api.model.ProjectView import ProjectView
+from hub_pip.api.model.CodeLocationView import CodeLocationView
 
 
-class PagedProjectView(object):
+class PagedCodeLocationView(object):
 
     total_count = None
     items = None
@@ -12,7 +12,7 @@ class PagedProjectView(object):
     }
 
     attribute_schema = {
-        "items": [ProjectView]
+        "items": [CodeLocationView]
     }
 
     def __init__(self):

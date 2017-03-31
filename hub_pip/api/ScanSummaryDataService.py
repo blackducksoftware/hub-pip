@@ -1,7 +1,7 @@
 import json
 
-from bdsplugin.api.RestConnection import RestConnection
-from bdsplugin.api.model.PagedScanSummaryView import PagedScanSummaryView
+from hub_pip.api.RestConnection import RestConnection
+from hub_pip.api.model.PagedScanSummaryView import PagedScanSummaryView
 
 
 class ScanSummaryDataService(object):

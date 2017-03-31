@@ -3,7 +3,7 @@ try:
 except:
     from six.moves import configparser
 
-from bdsplugin.api.HubServerConfig import HubServerConfig
+from hub_pip.api.HubServerConfig import HubServerConfig
 
 
 class BlackDuckConfig(object):

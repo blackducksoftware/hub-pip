@@ -3,16 +3,16 @@ import traceback
 import pip
 from setuptools import Command
 
-from bdsplugin.BlackDuckConfig import BlackDuckConfig
-from bdsplugin.BlackDuckCore import *
-import bdsplugin.BlackDuckPackage
-from bdsplugin.api.AuthenticationDataService import AuthenticationDataService
-from bdsplugin.api.LinkedDataDataService import LinkedDataDataService
-from bdsplugin.api.ProjectDataService import ProjectDataService
-from bdsplugin.api.RestConnection import RestConnection
-from bdsplugin.api.VersionBomPolicyDataService import VersionBomPolicyDataService
-from bdsplugin.api.WaitingDataService import WaitingDataService
-from bdsplugin.bdio.Bdio import Bdio
+from hub_pip.BlackDuckConfig import BlackDuckConfig
+from hub_pip.BlackDuckCore import *
+import hub_pip.BlackDuckPackage
+from hub_pip.api.AuthenticationDataService import AuthenticationDataService
+from hub_pip.api.LinkedDataDataService import LinkedDataDataService
+from hub_pip.api.ProjectDataService import ProjectDataService
+from hub_pip.api.RestConnection import RestConnection
+from hub_pip.api.VersionBomPolicyDataService import VersionBomPolicyDataService
+from hub_pip.api.WaitingDataService import WaitingDataService
+from hub_pip.bdio.Bdio import Bdio
 
 
 __version__ = "0.0.1"
@@ -20,7 +20,7 @@ __version__ = "0.0.1"
 
 class BlackDuckCommand(Command):
 
-    description = "Setuptools bdsplugin"
+    description = "Setuptools hub_pip"
 
     user_options = [
         ("config-path=", "c", "Path to Black Duck Configuration file"),

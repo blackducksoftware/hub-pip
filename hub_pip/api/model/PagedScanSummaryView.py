@@ -1,7 +1,7 @@
-from bdsplugin.api.model.CodeLocationView import CodeLocationView
+from hub_pip.api.model.ScanSummaryView import ScanSummaryView
 
 
-class PagedCodeLocationView(object):
+class PagedScanSummaryView(object):
 
     total_count = None
     items = None
@@ -12,7 +12,7 @@ class PagedCodeLocationView(object):
     }
 
     attribute_schema = {
-        "items": [CodeLocationView]
+        "items": [ScanSummaryView]
     }
 
     def __init__(self):

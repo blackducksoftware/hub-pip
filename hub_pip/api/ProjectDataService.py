@@ -1,11 +1,11 @@
 import json
 
-from bdsplugin.api.RestConnection import RestConnection
-from bdsplugin.api.model.PagedProjectVersionView import \
+from hub_pip.api.RestConnection import RestConnection
+from hub_pip.api.model.PagedProjectVersionView import \
     PagedProjectVersionView
-from bdsplugin.api.model.PagedProjectView import PagedProjectView
-from bdsplugin.api.model.ProjectVersionView import ProjectVersionView
-from bdsplugin.api.model.ProjectView import ProjectView
+from hub_pip.api.model.PagedProjectView import PagedProjectView
+from hub_pip.api.model.ProjectVersionView import ProjectVersionView
+from hub_pip.api.model.ProjectView import ProjectView
 
 
 class ProjectDataService(object):

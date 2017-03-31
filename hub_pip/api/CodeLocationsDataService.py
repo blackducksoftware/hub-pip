@@ -1,7 +1,7 @@
 import json
 
-from bdsplugin.api.RestConnection import RestConnection
-from bdsplugin.api.model.PagedCodeLocationView import PagedCodeLocationView
+from hub_pip.api.RestConnection import RestConnection
+from hub_pip.api.model.PagedCodeLocationView import PagedCodeLocationView
 
 
 class CodeLocationsDataService(object):

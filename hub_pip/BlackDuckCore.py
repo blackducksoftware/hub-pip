@@ -7,7 +7,7 @@ import pip
 import pkg_resources
 from setuptools.package_index import PackageIndex
 
-from bdsplugin.BlackDuckPackage import BlackDuckPackage
+from hub_pip.BlackDuckPackage import BlackDuckPackage
 
 
 try:

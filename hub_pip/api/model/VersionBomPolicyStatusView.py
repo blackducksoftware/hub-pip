@@ -1,4 +1,4 @@
-from bdsplugin.api.model.NameValuePair import NameValuePair
+from hub_pip.api.model.NameValuePair import NameValuePair
 
 
 class VersionBomPolicyStatusView(object):
