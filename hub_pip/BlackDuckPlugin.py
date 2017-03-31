@@ -146,7 +146,8 @@ class BlackDuckCommand(Command):
             print("Deploying Black Duck I/O")
             bdio_file_path = self.config.output_path + "/" + tree.name + ".jsonld"
             assert os.path.exists(bdio_file_path)
-            bdio_data = open(bdio_file_path, "r").read()
+            with open(bdio_file_path, "r") as bdio_file:
+                bdio_data = bdio_file.read()
 
             rc = self.get_authenticated_api()
             linked_data_data_service = LinkedDataDataService(rc)

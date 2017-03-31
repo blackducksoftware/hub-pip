@@ -3,6 +3,8 @@ try:
 except:
     from six.moves import configparser
 
+import StringIO
+
 from hub_pip.api.HubServerConfig import HubServerConfig
 
 
@@ -13,12 +15,14 @@ class BlackDuckConfig(object):
 
     output_path = "build/output"
 
-    ignore_failure = False
-    flat_list = False
-    tree_list = False
-    create_hub_bdio = False
+    ignore_failure = True
+    flat_list = True
+    tree_list = True
+    create_hub_bdio = True
     deploy_hub_bdio = False
     check_policies = False
+
+    section_name = "Black Duck Config"
 
     def __init__(self):
         self.hub_server_config = HubServerConfig()
@@ -29,56 +33,111 @@ class BlackDuckConfig(object):
 
     @classmethod
     def from_file(self, config_file_path):
-        bd_config = BlackDuckConfig()
+        config_str = None
+        with open(config_file_path, "r") as config_file:
+            config_str = config_file.read()
+        return self.from_string(config_str)
 
+    @classmethod
+    def from_string(self, config_str, black_duck_config=None):
+        bd_config = black_duck_config
+        if bd_config is None:
+            bd_config = self.from_nothing()
+
+        string_buffer = StringIO.StringIO(config_str)
         config = configparser.RawConfigParser()
         config.allow_no_value = True
-        config.read(config_file_path)
+        config.readfp(string_buffer)
 
-        bd_config.hub_server_config = HubServerConfig()
+        """Initialize defaults"""
+        url = bd_config.hub_server_config.hub_url
+        username = bd_config.hub_server_config.hub_username
+        password = bd_config.hub_server_config.hub_password
+        p_host = bd_config.hub_server_config.hub_proxy_host
+        p_port = bd_config.hub_server_config.hub_proxy_port
+        p_username = bd_config.hub_server_config.hub_username
+        p_password = bd_config.hub_server_config.hub_proxy_password
+        timeout = bd_config.hub_server_config.hub_timeout
+        s_timeout = bd_config.hub_server_config.hub_scan_timeout
 
-        bd_config.hub_server_config.hub_url = config.get(
-            "Hub Connection", "Hub.Url")
-        bd_config.hub_server_config.hub_username = config.get(
-            "Hub Connection", "Hub.Username")
-        bd_config.hub_server_config.hub_password = config.get(
-            "Hub Connection", "Hub.Password")
+        code_loc = bd_config.code_location_name
+        output_path = bd_config.output_path
 
-        bd_config.hub_server_config.hub_proxy_host = config.get(
-            "Hub Connection", "Hub.Proxy.Host")
-        bd_config.hub_server_config.hub_proxy_port = config.get(
-            "Hub Connection", "Hub.Proxy.Port")
-        bd_config.hub_server_config.hub_proxy_username = config.get(
-            "Hub Connection", "Hub.Proxy.Username")
-        bd_config.hub_server_config.hub_proxy_password = config.get(
-            "Hub Connection", "Hub.Proxy.Password")
+        i_fail = bd_config.ignore_failure
+        flat = bd_config.flat_list
+        tree = bd_config.tree_list
+        bdio = bd_config.create_hub_bdio
+        deploy = bd_config.deploy_hub_bdio
+        policies = bd_config.check_policies
 
-        bd_config.hub_server_config.hub_timeout = config.getfloat(
-            "Hub Connection", "Hub.Timeout")
-        bd_config.hub_server_config.hub_scan_timeout = config.getfloat(
-            "Hub Connection", "Hub.ScanTimeout")
+        """Parse config string"""
+        url = bd_config.get(config, url, "Hub.Url")
+        username = bd_config.get(config, username, "Hub.Username")
+        password = bd_config.get(config, password, "Hub.Password")
+        p_host = bd_config.get(config, p_host, "Hub.Proxy.Host")
+        p_port = bd_config.get(config, p_port, "Hub.Proxy.Port")
+        p_username = bd_config.get(config, p_username, "Hub.Proxy.Username")
+        p_password = bd_config.get(config, p_password, "Hub.Proxy.Password")
+        timeout = bd_config.getfloat(config, timeout, "Hub.Timeout")
+        s_timeout = bd_config.getfloat(config, s_timeout, "Hub.ScanTimeout")
 
-        bd_config.code_location_name = config.get(
-            "Hub Connection", "Hub.CodeLocationName")
+        code_loc = bd_config.get(config, code_loc, "Hub.CodeLocationName")
+        output_path = bd_config.get(config, output_path, "OutputDirectory")
 
-        bd_config.output_path = config.get("Paths", "OutputDirectory")
+        i_fail = bd_config.getboolean(config, i_fail, "IgnoreFailure")
+        flat = bd_config.getboolean(config, flat, "CreateFlatDependencyList")
+        tree = bd_config.getboolean(config, tree, "CreateTreeDependencyList")
+        bdio = bd_config.getboolean(config, bdio, "CreateHubBdio")
+        deploy = bd_config.getboolean(config, deploy, "DeployHubBdio")
+        policies = bd_config.getboolean(config, policies, "CheckPolicies")
 
-        bd_config.ignore_failure = config.getboolean(
-            "Options", "IgnoreFailure")
-        bd_config.flat_list = config.getboolean(
-            "Options", "CreateFlatDependencyList")
-        bd_config.tree_list = config.getboolean(
-            "Options", "CreateTreeDependencyList")
-        bd_config.create_hub_bdio = config.getboolean(
-            "Options", "CreateHubBdio")
-        bd_config.deploy_hub_bdio = config.getboolean(
-            "Options", "DeployHubBdio")
-        bd_config.check_policies = config.getboolean(
-            "Options", "CheckPolicies")
+        bd_config.hub_server_config.hub_url = url
+        bd_config.hub_server_config.hub_username = username
+        bd_config.hub_server_config.hub_password = password
+        bd_config.hub_server_config.hub_proxy_host = p_host
+        bd_config.hub_server_config.hub_proxy_port = p_port
+        bd_config.hub_server_config.hub_username = p_username
+        bd_config.hub_server_config.hub_proxy_password = p_password
+        bd_config.hub_server_config.hub_timeout = timeout
+        bd_config.hub_server_config.hub_scan_timeout = s_timeout
+
+        bd_config.code_location_name = code_loc
+        bd_config.output_path = output_path
+
+        bd_config.ignore_failure = i_fail
+        bd_config.flat_list = flat
+        bd_config.tree_list = tree
+        bd_config.create_hub_bdio = bdio
+        bd_config.deploy_hub_bdio = deploy
+        bd_config.check_policies = policies
 
         verify(bd_config)
         verify(bd_config.hub_server_config)
         return bd_config
+
+    def get(self, config, default, property_name):
+        value = None
+        try:
+            value = config.get(self.section_name, property_name)
+        except configparser.NoOptionError:
+            value = default
+        return value
+
+    def getboolean(self, config, default, property_name):
+        value = None
+        try:
+            value = config.getboolean(self.section_name, property_name)
+        except configparser.NoOptionError:
+            value = default
+        return value
+
+    def getfloat(self, config, default, property_name):
+        value = None
+        try:
+            value = config.getfloat(self.section_name, property_name)
+        except configparser.NoOptionError:
+            value = default
+        return value
 
 
 def verify(obj):

@@ -3,8 +3,6 @@
 hub-pip
 Usage:
   hub-pip 
-        <ProjectName>
-        <ProjectVersion>
         [
         (-c <hub_config.ini>) 
         --Hub.Url=<huburl>
@@ -30,23 +28,6 @@ Options:
     -h --help                            Show this screen.
     --version                            Show version.
     (-c <hub_config.ini>)                Path to hub configuration file
-    --Hub.Url=<huburl>                   The url of the hub
-    --Hub.Username=<username>            The username to login to the hub
-    --Hub.Password=<password>            The password to login 
-    --Hub.Proxy.Host=<None>              The proxy host
-    --Hub.Proxy.Port=<None>              
-    --Hub.Proxy.Username=<None>
-    --Hub.Proxy.Password=<None>
-    --Hub.Timeout=<120>
-    --Hub.ScanTimeout=<300>
-    --Hub.CodeLocationName=<None>
-    --OutputDirectory=<build/output/>
-    --IgnoreFailure=<False>
-    --CreateFlatDependencyList=<True>
-    --CreateTreeDependencyList=<True>
-    --CreateHubBdio=<True>
-    --DeployHubBdio=<True>
-    --CheckPolicies=<True>
 Examples:
   hub-pip test
 Help:
@@ -56,12 +37,12 @@ Help:
 
 
 from inspect import getmembers, isclass
-from json import dumps
 
 from docopt import docopt
 from hub_pip.BlackDuckPlugin import BlackDuckCommand
 
 from . import __version__ as VERSION
+from .BlackDuckConfig import BlackDuckConfig
 
 
 def main():
@@ -70,4 +51,17 @@ def main():
 
     options = docopt(__doc__, version=VERSION)
 
-    """TODO: Parse options to BlackDuckConfig class"""
+    config_str = "[Black Duck Config]\n"
+
+    for key, value in options.iteritems():
+        if "--" in key and value is not None:
+            field = key.replace("--", "")
+            config_option = field + " = " + str(value) + "\n"
+            config_str += config_option
+
+    config = None
+    if options["-c"]:
+        config_file_path = options["<hub_config.ini>"]
+        config = BlackDuckConfig.from_file(config_file_path)
+
+    config = BlackDuckConfig.from_string(config_str, black_duck_config=config)
