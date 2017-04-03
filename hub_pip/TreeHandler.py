@@ -1,4 +1,4 @@
-import FileHandler
+from hub_pip.FileHandler import generate_file
 
 
 class TreeHandler(object):
@@ -10,7 +10,7 @@ class TreeHandler(object):
     def render_tree(self,  output_path=None):
         result = self._render_tree_helper(self.tree)
         if output_path:
-            FileHandler.generate_file(
+            generate_file(
                 result, self.tree.name, output_path, "_tree.txt")
         return result
 
@@ -30,6 +30,6 @@ class TreeHandler(object):
             result += node.name + "==" + node.version + "\n"
 
         if output_path:
-            FileHandler.generate_file(
+            generate_file(
                 result, self.tree.name, output_path, "_flat.txt")
         return result

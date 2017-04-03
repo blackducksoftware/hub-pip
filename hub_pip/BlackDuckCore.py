@@ -221,6 +221,6 @@ def get_best(dependency, ignore_failure):
 
     if ignore_failure == False:
         raise Exception(message + dependency)
-    print message + dependency
+    print (message + dependency)
 
     return None

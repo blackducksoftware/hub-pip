@@ -1,8 +1,10 @@
-import StringIO
+from io import StringIO
 
-from pip.cmdoptions import requirements
+import six
 
 from hub_pip.api.HubServerConfig import HubServerConfig
+
+
 try:
     import configparser
 except:
@@ -49,7 +51,12 @@ class BlackDuckConfig(object):
         if bd_config is None:
             bd_config = self.from_nothing()
 
-        string_buffer = StringIO.StringIO(config_str)
+        string_buffer = None
+        if six.PY2:
+            string_buffer = StringIO(unicode(config_str))
+        else:
+            string_buffer = StringIO(config_str)
+
         config = configparser.RawConfigParser()
         config.allow_no_value = True
         config.readfp(string_buffer)

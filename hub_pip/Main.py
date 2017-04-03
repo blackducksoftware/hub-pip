@@ -56,7 +56,7 @@ def main(options):
 
     config_str = "[Black Duck Config]\n"
 
-    for key, value in options.iteritems():
+    for key, value in options.items():
         if "--" in key and value is not None and value is not "--Config":
             field = key.replace("--", "")
             config_option = field + " = " + str(value) + "\n"
