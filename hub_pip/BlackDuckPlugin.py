@@ -46,9 +46,13 @@ class BlackDuckCommand(Command):
         # If the user wants to use a config file. Necessary for hub connection
         provided_config = self.config_path is not None
         if provided_config:
-            assert os.path.exists(self.config_path), (
-                "Black Duck Config file %s does not exist." % self.config_path)
-            self.config = BlackDuckConfig.from_file(self.config_path)
+            try:
+                assert os.path.exists(self.config_path)
+                self.config = BlackDuckConfig.from_file(self.config_path)
+            except AssertionError as exception:
+                print("Black Duck Config file %s does not exist." %
+                      self.config_path)
+                self.config = BlackDuckConfig.from_nothing()
         else:
             self.config = BlackDuckConfig.from_nothing()
 
