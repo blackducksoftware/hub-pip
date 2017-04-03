@@ -16,6 +16,7 @@ Usage:
         --Hub.ScanTimeout=<300>
         --Hub.CodeLocationName=<None>
         --OutputDirectory=<build/output/>
+        --RequirementsFile=<None>
         --IgnoreFailure=<False>
         --CreateFlatDependencyList=<True>
         --CreateTreeDependencyList=<True>
@@ -40,8 +41,8 @@ from inspect import getmembers, isclass
 
 from docopt import docopt
 from hub_pip.BlackDuckConfig import BlackDuckConfig
+from hub_pip.BlackDuckCore import BlackDuckCore
 from hub_pip.BlackDuckPlugin import BlackDuckCommand
-
 
 from . import __version__ as VERSION
 
@@ -65,3 +66,13 @@ def main():
         config = BlackDuckConfig.from_file(config_file_path)
 
     config = BlackDuckConfig.from_string(config_str, black_duck_config=config)
+
+    # TODO: Parse project name and version from setup.py
+    project_name = "blackduck-sample-project"
+    project_version = "0.0.8"
+
+    config.project_name = project_name
+    config.project_version_name = project_version
+
+    core = BlackDuckCore(config)
+    core.run()

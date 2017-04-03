@@ -1,11 +1,12 @@
+import StringIO
+
+from pip.cmdoptions import requirements
+
+from hub_pip.api.HubServerConfig import HubServerConfig
 try:
     import configparser
 except:
     from six.moves import configparser
-
-import StringIO
-
-from hub_pip.api.HubServerConfig import HubServerConfig
 
 
 class BlackDuckConfig(object):
@@ -17,6 +18,7 @@ class BlackDuckConfig(object):
     code_location_name = None
 
     output_path = "build/output"
+    requirements_file_path = None
 
     ignore_failure = True
     flat_list = True
@@ -65,6 +67,7 @@ class BlackDuckConfig(object):
 
         code_loc = bd_config.code_location_name
         output_path = bd_config.output_path
+        requirements = bd_config.requirements_file_path
 
         i_fail = bd_config.ignore_failure
         flat = bd_config.flat_list
@@ -86,6 +89,7 @@ class BlackDuckConfig(object):
 
         code_loc = bd_config.get(config, code_loc, "Hub.CodeLocationName")
         output_path = bd_config.get(config, output_path, "OutputDirectory")
+        requirements = bd_config.get(config, requirements, "RequirementsFile")
 
         i_fail = bd_config.getboolean(config, i_fail, "IgnoreFailure")
         flat = bd_config.getboolean(config, flat, "CreateFlatDependencyList")
@@ -106,6 +110,7 @@ class BlackDuckConfig(object):
 
         bd_config.code_location_name = code_loc
         bd_config.output_path = output_path
+        bd_config.requirements_file_path = requirements
 
         bd_config.ignore_failure = i_fail
         bd_config.flat_list = flat

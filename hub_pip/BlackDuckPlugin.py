@@ -46,7 +46,6 @@ class BlackDuckCommand(Command):
         self.requirements_path = None
         self.flat_list = None
         self.tree_list = None
-        self.file_requirements = None
         self.hub_url = None
         self.hub_username = None
         self.hub_password = None
@@ -83,12 +82,8 @@ class BlackDuckCommand(Command):
         if self.hub_password is not None:
             self.config.hub_server_config.hub_password = self.hub_password
 
-        # If the user wants to include their requirements.txt file
         if self.requirements_path:
-            assert os.path.exists(self.requirements_path), (
-                "The requirements file %s does not exist." % self.requirements_path)
-            self.file_requirements = pip.req.parse_requirements(
-                self.requirements_path, session=pip.download.PipSession())
+            self.config.requirements_file_path = self.requirements_path
 
     def run(self):
         try:
@@ -106,33 +101,12 @@ class BlackDuckCommand(Command):
         # The user's project's artifact and version
         project_name = self.distribution.get_name()
         project_version = self.distribution.get_version()
-        project_av = project_name + "==" + project_version
 
         self.config.project_name = project_name
         self.config.project_version_name = project_version
 
         core = BlackDuckCore(self.config)
-
-        pkgs = get_raw_dependencies(project_av, raise_on_fail)
-        pkg = pkgs.pop(0)  # The first dependency is itself
-        pkg_dependencies = get_dependencies(pkg, raise_on_fail)
-
-        if self.file_requirements:
-            for req in self.file_requirements:
-                req_package = get_best(req.req, raise_on_fail)
-                found = False
-                for existing in pkg_dependencies:
-                    if existing.key.lower() == req_package.key.lower():
-                        found = True
-                        break
-                if not found:
-                    req_dependencies = get_dependencies(pkg, raise_on_fail)
-                    req_package = BlackDuckPackage(
-                        req_package.key, req_package.project_name, req_package.version, req_dependencies)
-                    pkg_dependencies.append(req_package)
-
-        tree = BlackDuckPackage(pkg.key, pkg.project_name,
-                                pkg.version, pkg_dependencies)
+        tree = core.run()
 
         tree_handler = TreeHandler(tree)
 
