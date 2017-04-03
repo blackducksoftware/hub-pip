@@ -48,6 +48,8 @@ class BlackDuckCore(object):
                 raise exception
 
     def run(self):
+        print(self.project_name)
+        print(self.project_version)
         project_av = self.project_name + "==" + self.project_version
 
         pkgs = get_raw_dependencies(project_av, self.config.ignore_failure)

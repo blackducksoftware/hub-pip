@@ -35,7 +35,8 @@ class BlackDuckCommand(Command):
         ("CreateHubBdio=", None, None),
         ("DeployHubBdio=", None, None),
         ("CheckPolicies=", None, None),
-
+        ("Project-Name=", None, None),
+        ("Project-Version=", None, None),
     ]
 
     options = None
@@ -62,8 +63,15 @@ class BlackDuckCommand(Command):
         self.CreateHubBdio = None
         self.DeployHubBdio = None
         self.CheckPolicies = None
+        self.Project_Name = None
+        self.Project_Version = None
 
     def finalize_options(self):
+        if self.Project_Name is None:
+            self.Project_Name = self.distribution.get_name()
+        if self.Project_Version is None:
+            self.Project_Version = self.distribution.get_version()
+
         self.options = {
             '-c': self.Config,
             '--Config': self.Config,
@@ -85,7 +93,9 @@ class BlackDuckCommand(Command):
             '--CreateHubBdio': self.CreateHubBdio,
             '--DeployHubBdio': self.DeployHubBdio,
             '--CheckPolicies': self.CheckPolicies,
-            '<hub_config.ini>': self.Config
+            '<hub_config.ini>': self.Config,
+            '--Project-Name': self.Project_Name,
+            '--Project-Version': self.Project_Version,
         }
 
     def run(self):

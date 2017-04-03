@@ -76,6 +76,9 @@ class BlackDuckConfig(object):
         deploy = bd_config.deploy_hub_bdio
         policies = bd_config.check_policies
 
+        project = bd_config.project_name
+        version = bd_config.project_version_name
+
         """Parse config string"""
         url = bd_config.get(config, url, "Hub-Url")
         username = bd_config.get(config, username, "Hub-Username")
@@ -98,6 +101,9 @@ class BlackDuckConfig(object):
         deploy = bd_config.getboolean(config, deploy, "DeployHubBdio")
         policies = bd_config.getboolean(config, policies, "CheckPolicies")
 
+        project = bd_config.get(config, project, "Project-Name")
+        version = bd_config.get(config, version, "Project-Version")
+
         bd_config.hub_server_config.hub_url = url
         bd_config.hub_server_config.hub_username = username
         bd_config.hub_server_config.hub_password = password
@@ -118,6 +124,9 @@ class BlackDuckConfig(object):
         bd_config.create_hub_bdio = bdio
         bd_config.deploy_hub_bdio = deploy
         bd_config.check_policies = policies
+
+        bd_config.project_name = project
+        bd_config.project_version_name = version
 
         verify(bd_config)
         verify(bd_config.hub_server_config)

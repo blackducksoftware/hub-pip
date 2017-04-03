@@ -34,7 +34,10 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'hub-pip=hub_pip.Main:cli',
+            'hub-pip-cli=hub_pip.Main:cli',
         ],
+        "distutils.commands": [
+            'hub_pip=hub_pip.BlackDuckPlugin:BlackDuckCommand',
+        ]
     },
 )

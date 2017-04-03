@@ -2,7 +2,7 @@
 """
 hub-pip
 Usage:
-  hub-pip 
+  hub-pip --Project-Name=<None> --Project-Version=<None>
         [
         ((-c | --Config) <hub_config.ini>) 
         --Hub-Url=<huburl>
@@ -68,13 +68,6 @@ def main(options):
         config = BlackDuckConfig.from_file(config_file_path)
 
     config = BlackDuckConfig.from_string(config_str, black_duck_config=config)
-
-    # TODO: Parse project name and version from setup.py
-    project_name = "blackduck-sample-project"
-    project_version = "0.0.8"
-
-    config.project_name = project_name
-    config.project_version_name = project_version
 
     core = BlackDuckCore(config)
     core.run()
