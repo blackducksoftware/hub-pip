@@ -34,7 +34,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'hub-pip=hub_pip.Main:main',
+            'hub-pip=hub_pip.Main:cli',
         ],
     },
 )

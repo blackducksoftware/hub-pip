@@ -4,17 +4,17 @@ hub-pip
 Usage:
   hub-pip 
         [
-        (-c <hub_config.ini>) 
-        --Hub.Url=<huburl>
-        --Hub.Username=<username>
-        --Hub.Password=<password>
-        --Hub.Proxy.Host=<None>
-        --Hub.Proxy.Port=<None>
-        --Hub.Proxy.Username=<None>
-        --Hub.Proxy.Password=<None>
-        --Hub.Timeout=<120>
-        --Hub.ScanTimeout=<300>
-        --Hub.CodeLocationName=<None>
+        ((-c | --Config) <hub_config.ini>) 
+        --Hub-Url=<huburl>
+        --Hub-Username=<username>
+        --Hub-Password=<password>
+        --Hub-Proxy-Host=<None>
+        --Hub-Proxy-Port=<None>
+        --Hub-Proxy-Username=<None>
+        --Hub-Proxy-Password=<None>
+        --Hub-Timeout=<120>
+        --Hub-ScanTimeout=<300>
+        --Hub-CodeLocationName=<None>
         --OutputDirectory=<build/output/>
         --RequirementsFile=<None>
         --IgnoreFailure=<False>
@@ -42,26 +42,28 @@ from inspect import getmembers, isclass
 from docopt import docopt
 from hub_pip.BlackDuckConfig import BlackDuckConfig
 from hub_pip.BlackDuckCore import BlackDuckCore
-from hub_pip.BlackDuckPlugin import BlackDuckCommand
 
 from . import __version__ as VERSION
 
 
-def main():
-    """Main CLI entrypoint."""
-
+def cli():
     options = docopt(__doc__, version=VERSION)
+    main(options)
+
+
+def main(options):
+    """Main CLI entrypoint."""
 
     config_str = "[Black Duck Config]\n"
 
     for key, value in options.iteritems():
-        if "--" in key and value is not None:
+        if "--" in key and value is not None and value is not "--Config":
             field = key.replace("--", "")
             config_option = field + " = " + str(value) + "\n"
             config_str += config_option
 
     config = None
-    if options["-c"]:
+    if options["-c"] or options["--Config"]:
         config_file_path = options["<hub_config.ini>"]
         config = BlackDuckConfig.from_file(config_file_path)
 

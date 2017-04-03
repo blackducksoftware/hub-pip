@@ -77,17 +77,17 @@ class BlackDuckConfig(object):
         policies = bd_config.check_policies
 
         """Parse config string"""
-        url = bd_config.get(config, url, "Hub.Url")
-        username = bd_config.get(config, username, "Hub.Username")
-        password = bd_config.get(config, password, "Hub.Password")
-        p_host = bd_config.get(config, p_host, "Hub.Proxy.Host")
-        p_port = bd_config.get(config, p_port, "Hub.Proxy.Port")
-        p_username = bd_config.get(config, p_username, "Hub.Proxy.Username")
-        p_password = bd_config.get(config, p_password, "Hub.Proxy.Password")
-        timeout = bd_config.getfloat(config, timeout, "Hub.Timeout")
-        s_timeout = bd_config.getfloat(config, s_timeout, "Hub.ScanTimeout")
+        url = bd_config.get(config, url, "Hub-Url")
+        username = bd_config.get(config, username, "Hub-Username")
+        password = bd_config.get(config, password, "Hub-Password")
+        p_host = bd_config.get(config, p_host, "Hub-Proxy-Host")
+        p_port = bd_config.get(config, p_port, "Hub-Proxy-Port")
+        p_username = bd_config.get(config, p_username, "Hub-Proxy-Username")
+        p_password = bd_config.get(config, p_password, "Hub-Proxy-Password")
+        timeout = bd_config.getfloat(config, timeout, "Hub-Timeout")
+        s_timeout = bd_config.getfloat(config, s_timeout, "Hub-ScanTimeout")
 
-        code_loc = bd_config.get(config, code_loc, "Hub.CodeLocationName")
+        code_loc = bd_config.get(config, code_loc, "Hub-CodeLocationName")
         output_path = bd_config.get(config, output_path, "OutputDirectory")
         requirements = bd_config.get(config, requirements, "RequirementsFile")
 

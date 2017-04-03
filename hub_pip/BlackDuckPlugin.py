@@ -3,11 +3,12 @@ import os
 
 from setuptools import Command
 
+from docopt import docopt
 from hub_pip.BlackDuckConfig import BlackDuckConfig
 from hub_pip.BlackDuckCore import BlackDuckCore
+from hub_pip.Main import main
 
-
-__version__ = "0.0.1"
+from . import __version__ as VERSION
 
 
 class BlackDuckCommand(Command):
@@ -15,73 +16,82 @@ class BlackDuckCommand(Command):
     description = "Setuptools hub_pip"
 
     user_options = [
-        ("config-path=", "c", "Path to Black Duck Configuration file"),
-        ("requirements-path=", "r", "Path to your requirements.txt file"),
-        ("flat-list=", "f", "True to generate flat list"),
-        ("tree-list=", "t", "True to Generate tree list"),
-        ("hub-url=", "h", "The url to use for bdio deployment"),
-        ("hub-username=", "u", "The username to use for bdio deployment"),
-        ("hub-password=", "p", "The password to use for bdio deployment"),
-        ("raise-on-matching-fail=", "m",
-         "True to raise exception when finding a declared package fails"),
+        ("Config=", "c", "Path to Black Duck Configuration file"),
+        ("Hub-Url=", None, None),
+        ("Hub-Username=", None, None),
+        ("Hub-Password=", None, None),
+        ("Hub-Proxy-Host=", None, None),
+        ("Hub-Proxy-Port=", None, None),
+        ("Hub-Proxy-Username=", None, None),
+        ("Hub-Proxy-Password=", None, None),
+        ("Hub-Timeout=", None, None),
+        ("Hub-ScanTimeout=", None, None),
+        ("Hub-CodeLocationName=", None, None),
+        ("OutputDirectory=", None, None),
+        ("RequirementsFile=", None, None),
+        ("IgnoreFailure=", None, None),
+        ("CreateFlatDependencyList=", None, None),
+        ("CreateTreeDependencyList=", None, None),
+        ("CreateHubBdio=", None, None),
+        ("DeployHubBdio=", None, None),
+        ("CheckPolicies=", None, None),
+
     ]
 
-    config = None
-    raise_on_matching_fail = None
+    options = None
 
     def initialize_options(self):
         """Set default values for options."""
         # Each user option must be listed here with their default value.
-        self.config_path = None
-        self.requirements_path = None
-        self.flat_list = None
-        self.tree_list = None
-        self.hub_url = None
-        self.hub_username = None
-        self.hub_password = None
-        self.raise_on_matching_fail = False
+        self.Config = None
+        self.Hub_Url = None
+        self.Hub_Username = None
+        self.Hub_Password = None
+        self.Hub_Proxy_Host = None
+        self.Hub_Proxy_Port = None
+        self.Hub_Proxy_Username = None
+        self.Hub_Proxy_Password = None
+        self.Hub_Timeout = None
+        self.Hub_ScanTimeout = None
+        self.Hub_CodeLocationName = None
+        self.OutputDirecotry = None
+        self.RequirementsFile = None
+        self.IgnoreFailure = None
+        self.CreateFlatDependencyList = None
+        self.CreateTreeDependencyList = None
+        self.CreateHubBdio = None
+        self.DeployHubBdio = None
+        self.CheckPolicies = None
 
     def finalize_options(self):
-        """Post-process options."""
-        # If the user wants to use a config file. Necessary for hub connection
-        provided_config = self.config_path is not None
-        if provided_config:
-            try:
-                assert os.path.exists(self.config_path)
-                self.config = BlackDuckConfig.from_file(self.config_path)
-            except AssertionError as exception:
-                print("Black Duck Config file %s does not exist." %
-                      self.config_path)
-                self.config = BlackDuckConfig.from_nothing()
-        else:
-            self.config = BlackDuckConfig.from_nothing()
-
-        if self.flat_list is not None:
-            self.config.flat_list = string_to_boolean(self.flat_list)
-
-        if self.tree_list is not None:
-            self.config.tree_list = string_to_boolean(self.tree_list)
-
-        if self.raise_on_matching_fail is not None:
-            self.raise_on_matching_fail = string_to_boolean(
-                self.raise_on_matching_fail)
-
-        if self.hub_url is not None:
-            self.config.hub_server_config.hub_url = self.hub_url
-
-        if self.hub_username is not None:
-
-            self.config.hub_server_config.hub_username = self.hub_username
-
-        if self.hub_password is not None:
-            self.config.hub_server_config.hub_password = self.hub_password
-
-        if self.requirements_path:
-            self.config.requirements_file_path = self.requirements_path
+        self.options = {
+            '-c': self.Config,
+            '--Config': self.Config,
+            '--Hub-Url': self.Hub_Url,
+            '--Hub-Username': self.Hub_Username,
+            '--Hub-Password': self.Hub_Password,
+            '--Hub-Proxy-Host': self.Hub_Proxy_Host,
+            '--Hub-Proxy-Port': self.Hub_Proxy_Port,
+            '--Hub-Proxy-Username': self.Hub_Proxy_Username,
+            '--Hub-Proxy-Password': self.Hub_Proxy_Password,
+            '--Hub-Timeout': self.Hub_Timeout,
+            '--Hub-ScanTimeout': self.Hub_ScanTimeout,
+            '--Hub-CodeLocationName': self.Hub_CodeLocationName,
+            '--OutputDirecotry': self.OutputDirecotry,
+            '--RequirementsFile': self.RequirementsFile,
+            '--IgnoreFailure': self.IgnoreFailure,
+            '--CreateFlatDependencyList': self.CreateFlatDependencyList,
+            '--CreateTreeDependencyList': self.CreateTreeDependencyList,
+            '--CreateHubBdio': self.CreateHubBdio,
+            '--DeployHubBdio': self.DeployHubBdio,
+            '--CheckPolicies': self.CheckPolicies,
+            '<hub_config.ini>': self.Config
+        }
 
     def run(self):
         """Run command."""
-
+        main(self.options)
+        """
         raise_on_fail = self.raise_on_matching_fail
 
         # The user's project's artifact and version
@@ -93,6 +103,7 @@ class BlackDuckCommand(Command):
 
         core = BlackDuckCore(self.config)
         tree = core.run()
+        """
 
 
 def string_to_boolean(string):
