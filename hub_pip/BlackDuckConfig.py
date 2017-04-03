@@ -10,6 +10,9 @@ from hub_pip.api.HubServerConfig import HubServerConfig
 
 class BlackDuckConfig(object):
 
+    project_name = None
+    project_version_name = None
+
     hub_server_config = None
     code_location_name = None
 

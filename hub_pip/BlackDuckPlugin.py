@@ -5,7 +5,9 @@ from setuptools import Command
 
 from hub_pip.BlackDuckConfig import BlackDuckConfig
 from hub_pip.BlackDuckCore import *
+import hub_pip.BlackDuckCore
 import hub_pip.BlackDuckPackage
+from hub_pip.TreeHandler import TreeHandler
 from hub_pip.api.AuthenticationDataService import AuthenticationDataService
 from hub_pip.api.LinkedDataDataService import LinkedDataDataService
 from hub_pip.api.ProjectDataService import ProjectDataService
@@ -106,6 +108,11 @@ class BlackDuckCommand(Command):
         project_version = self.distribution.get_version()
         project_av = project_name + "==" + project_version
 
+        self.config.project_name = project_name
+        self.config.project_version_name = project_version
+
+        core = BlackDuckCore(self.config)
+
         pkgs = get_raw_dependencies(project_av, raise_on_fail)
         pkg = pkgs.pop(0)  # The first dependency is itself
         pkg_dependencies = get_dependencies(pkg, raise_on_fail)
@@ -127,20 +134,21 @@ class BlackDuckCommand(Command):
         tree = BlackDuckPackage(pkg.key, pkg.project_name,
                                 pkg.version, pkg_dependencies)
 
+        tree_handler = TreeHandler(tree)
+
         if self.config.flat_list:
-            flattened = generate_flat_list(tree, self.config.output_path)
-            # print(flattened)
+            flattened = tree_handler.render_flat(self.config.output_path)
+            print(flattened)
 
         if self.config.tree_list:
-            tree_list = generate_tree_list(tree, self.config.output_path)
-            # print(tree_list)
+            tree_list = tree_handler.render_tree(self.config.output_path)
+            print(tree_list)
 
         if self.config.create_hub_bdio:
             print("Generating Black Duck I/O")
             bdio = Bdio(tree, self.config.code_location_name)
             bdio_data = bdio.generate_bdio()
-            bdio_str = generate_bdio(
-                bdio_data, project_name=tree.name, output_path=self.config.output_path)
+            bdio_str = bdio.write_bdio(output_path=self.config.output_path)
             print("Successfully generated Black Duck I/O")
 
         if self.config.deploy_hub_bdio:

@@ -39,15 +39,15 @@ Help:
 from inspect import getmembers, isclass
 
 from docopt import docopt
+from hub_pip.BlackDuckConfig import BlackDuckConfig
 from hub_pip.BlackDuckPlugin import BlackDuckCommand
 
+
 from . import __version__ as VERSION
-from .BlackDuckConfig import BlackDuckConfig
 
 
 def main():
     """Main CLI entrypoint."""
-    import hub_pip.commands
 
     options = docopt(__doc__, version=VERSION)
 

@@ -1,6 +1,8 @@
 
 from hub_pip.BlackDuckPackage import BlackDuckPackage
 from hub_pip.BlackDuckSerializer import *
+from hub_pip.FileHandler import generate_file
+from hub_pip.TreeHandler import TreeHandler
 from hub_pip.bdio.BdioComponent import BdioComponent
 from hub_pip.bdio.BdioExternalIdentifier import BdioExternalIdentifier
 from hub_pip.bdio.BdioProject import BdioProject
@@ -60,3 +62,14 @@ class Bdio(object):
             relationship = map_from_object(relationship)
             relationships.append(relationship)
         return relationships
+
+    def write_bdio(self, output_path=None):
+        bdio_data = self.generate_bdio()
+        bdio_str = json.dumps(bdio_data, indent=4, sort_keys=True)
+        if output_path:
+            file_name = "bdio"
+            if self.tree.name:
+                file_name = self.tree.name
+            generate_file(
+                bdio_str, file_name, output_path, ".jsonld")
+        return bdio_str
