@@ -33,4 +33,4 @@ class VersionBomPolicyStatusView(object):
         for count_pair in self.component_version_status_counts:
             if count_pair.name == value_name:
                 return str(count_pair.value)
-        raise Exception("Value name <" + value_name + "> not found")
+        return "0"  # No components were found

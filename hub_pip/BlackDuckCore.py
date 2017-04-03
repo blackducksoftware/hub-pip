@@ -150,21 +150,22 @@ class BlackDuckCore(object):
         pkg_dependencies = []
         for req in requirements:
             req_package = get_best(req.req, ignore_failure)
-            found = False
-            for existing in pkg_dependencies:
-                if existing.key.lower() == req_package.key.lower():
-                    found = True
-                    break
-            if not found:
-                req_dependencies = get_dependencies(
-                    req_package, ignore_failure)
-                key = req_package.key
-                name = req_package.project_name
-                version = req_package.version
-                dependencies = req_dependencies
-                req_package = BlackDuckPackage(
-                    key, name, version, dependencies)
-                pkg_dependencies.append(req_package)
+            if req_package:
+                found = False
+                for existing in pkg_dependencies:
+                    if existing.key.lower() == req_package.key.lower():
+                        found = True
+                        break
+                if not found:
+                    req_dependencies = get_dependencies(
+                        req_package, ignore_failure)
+                    key = req_package.key
+                    name = req_package.project_name
+                    version = req_package.version
+                    dependencies = req_dependencies
+                    req_package = BlackDuckPackage(
+                        key, name, version, dependencies)
+                    pkg_dependencies.append(req_package)
 
         return pkg_dependencies
 
