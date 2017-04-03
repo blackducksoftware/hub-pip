@@ -1,20 +1,10 @@
-import traceback
 
-import pip
+import os
+
 from setuptools import Command
 
 from hub_pip.BlackDuckConfig import BlackDuckConfig
-from hub_pip.BlackDuckCore import *
-import hub_pip.BlackDuckCore
-import hub_pip.BlackDuckPackage
-from hub_pip.TreeHandler import TreeHandler
-from hub_pip.api.AuthenticationDataService import AuthenticationDataService
-from hub_pip.api.LinkedDataDataService import LinkedDataDataService
-from hub_pip.api.ProjectDataService import ProjectDataService
-from hub_pip.api.RestConnection import RestConnection
-from hub_pip.api.VersionBomPolicyDataService import VersionBomPolicyDataService
-from hub_pip.api.WaitingDataService import WaitingDataService
-from hub_pip.bdio.Bdio import Bdio
+from hub_pip.BlackDuckCore import BlackDuckCore
 
 
 __version__ = "0.0.1"
@@ -86,14 +76,6 @@ class BlackDuckCommand(Command):
             self.config.requirements_file_path = self.requirements_path
 
     def run(self):
-        try:
-            self.execute()
-        except Exception as exception:
-            traceback.print_exc()
-            if not self.config.ignore_failure:
-                raise exception
-
-    def execute(self):
         """Run command."""
 
         raise_on_fail = self.raise_on_matching_fail
@@ -107,75 +89,6 @@ class BlackDuckCommand(Command):
 
         core = BlackDuckCore(self.config)
         tree = core.run()
-
-        tree_handler = TreeHandler(tree)
-
-        if self.config.flat_list:
-            flattened = tree_handler.render_flat(self.config.output_path)
-            print(flattened)
-
-        if self.config.tree_list:
-            tree_list = tree_handler.render_tree(self.config.output_path)
-            print(tree_list)
-
-        if self.config.create_hub_bdio:
-            print("Generating Black Duck I/O")
-            bdio = Bdio(tree, self.config.code_location_name)
-            bdio_data = bdio.generate_bdio()
-            bdio_str = bdio.write_bdio(output_path=self.config.output_path)
-            print("Successfully generated Black Duck I/O")
-
-        if self.config.deploy_hub_bdio:
-            print("Deploying Black Duck I/O")
-            bdio_file_path = self.config.output_path + "/" + tree.name + ".jsonld"
-            assert os.path.exists(bdio_file_path)
-            with open(bdio_file_path, "r") as bdio_file:
-                bdio_data = bdio_file.read()
-            rc = self.get_authenticated_api()
-            linked_data_data_service = LinkedDataDataService(rc)
-
-            linked_data_response = linked_data_data_service.upload_bdio(
-                bdio_data)
-            print("Black Duck I/O successfully deployed to the hub")
-
-        if self.config.check_policies:
-            rc = self.get_authenticated_api()
-            version_bom_policy_data_service = VersionBomPolicyDataService(rc)
-            waiting_data_service = WaitingDataService(rc, self.config)
-
-            print("Waiting for project to be created")
-            project_version_view = waiting_data_service.wait_for_project(
-                tree.name, tree.version)
-            print("Project created")
-
-            waiting_data_service.wait_for_scan(
-                project_version_view)
-            policy_status = version_bom_policy_data_service.get_version_bom_policy_view(
-                project_version_view)
-
-            string_builder = []
-            string_builder.append("The Hub found: ")
-            string_builder.append(policy_status.get_in_violation())
-            string_builder.append(" components in violation, ")
-            string_builder.append(
-                policy_status.get_in_violation_but_overridden())
-            string_builder.append(
-                " components in violation, but overridden, and ")
-            string_builder.append(policy_status.get_not_in_violation())
-            string_builder.append(" components not in violation.")
-            policy_log = "".join(string_builder)
-            print(policy_log)
-
-            if policy_status.overall_status == "IN_VIOLATION":
-                raise Exception(
-                    "The Hub found: " + policy_status.get_in_violation() + " components in violation")
-
-    def get_authenticated_api(self):
-        rc = RestConnection(self.config.hub_server_config)
-        authentication_data_service = AuthenticationDataService(rc)
-        authentication_response = authentication_data_service.authenticate()
-        authentication_response.raise_for_status()
-        return rc
 
 
 def string_to_boolean(string):

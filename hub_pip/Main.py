@@ -21,8 +21,8 @@ Usage:
         --CreateFlatDependencyList=<True>
         --CreateTreeDependencyList=<True>
         --CreateHubBdio=<True>
-        --DeployHubBdio=<True>
-        --CheckPolicies=<True>
+        --DeployHubBdio=<False>
+        --CheckPolicies=<False>
         ]
 
 Options:
