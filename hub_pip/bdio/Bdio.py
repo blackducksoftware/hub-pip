@@ -1,7 +1,7 @@
 
 from hub_pip.BlackDuckPackage import BlackDuckPackage
 from hub_pip.BlackDuckSerializer import *
-from hub_pip.FileHandler import generate_file
+from hub_pip.FileHandler import *
 from hub_pip.TreeHandler import TreeHandler
 from hub_pip.bdio.BdioComponent import BdioComponent
 from hub_pip.bdio.BdioExternalIdentifier import BdioExternalIdentifier
@@ -71,5 +71,5 @@ class Bdio(object):
             if self.tree.name:
                 file_name = self.tree.name
             generate_file(
-                bdio_str, file_name, output_path, ".jsonld")
+                bdio_str, file_name, output_path, BDIO_EXTENSION)
         return bdio_str

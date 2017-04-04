@@ -1,4 +1,7 @@
+from hub_pip.LogHandler import *
 from hub_pip.api.RestConnection import RestConnection
+
+INVALID_MESSAGE = "The provided username and password are invalid for the hub @ "
 
 
 class AuthenticationDataService(object):
@@ -16,7 +19,6 @@ class AuthenticationDataService(object):
         }
         response = self.rest_connection.make_post_request(
             self.rest_connection.JSPRING, credentials)
-        response.raise_for_status()
         return response
 
 
@@ -24,5 +26,9 @@ def get_authenticated_api(hub_server_config):
     rc = RestConnection(hub_server_config)
     authentication_data_service = AuthenticationDataService(rc)
     authentication_response = authentication_data_service.authenticate()
-    authentication_response.raise_for_status()
+    try:
+        authentication_response.raise_for_status()
+    except:
+        error(message=INVALID_MESSAGE + hub_server_config.hub_url)
+        raise Exception(INVALID_MESSAGE + hub_server_config.hub_url)
     return rc
