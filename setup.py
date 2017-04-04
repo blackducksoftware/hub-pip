@@ -26,12 +26,8 @@ setup(
     extras_require={
         'test': ['coverage', 'pytest', 'pytest-cov'],
     },
-    long_description=read("README.rst"),
-    classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
-        "Topic :: Utilities",
-        "License :: OSI Approved :: Apache 2.0 License",
-    ],
+    long_description=read("README.md"),
+    classifiers=[],
     entry_points={
         'console_scripts': [
             'hub-pip-cli=hub_pip.Main:cli',
