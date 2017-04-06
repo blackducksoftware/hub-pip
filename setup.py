@@ -11,9 +11,12 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
+package_name = "hub-pip"
+package_version = "0.0.1"
+
 setup(
-    name="hub-pip",
-    version="0.0.1",
+    name=package_name,
+    version=package_version,
     author="Black Duck Software",
     author_email="",
     description=(
@@ -21,7 +24,7 @@ setup(
     license="Apache 2.0",
     keywords="hub-pip blackduck",
     url="https://github.com/blackducksoftware/hub-python-plugin",
-    packages=find_packages(exclude=["docs", "tests*"]),
+    packages=[package_name],
     install_requires=["configparser", "requests", "six", "docopt"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
