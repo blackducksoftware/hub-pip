@@ -101,19 +101,6 @@ class BlackDuckCommand(Command):
     def run(self):
         """Run command."""
         main(self.options)
-        """
-        raise_on_fail = self.raise_on_matching_fail
-
-        # The user's project's artifact and version
-        project_name = self.distribution.get_name()
-        project_version = self.distribution.get_version()
-
-        self.config.project_name = project_name
-        self.config.project_version_name = project_version
-
-        core = BlackDuckCore(self.config)
-        tree = core.run()
-        """
 
 
 def string_to_boolean(string):

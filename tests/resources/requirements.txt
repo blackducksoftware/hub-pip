@@ -1,0 +1,12 @@
+pynamodb
+humanize
+vceffort
+pyhomematic
+pymesh
+envmgr-cli
+ustudio-hmac-tornado
+pyvdp
+collectd-gnocchi-status
+hyml
+psutil
+mjetplex

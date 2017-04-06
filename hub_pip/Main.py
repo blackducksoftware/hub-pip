@@ -30,7 +30,7 @@ Options:
     --version                            Show version.
     (-c <hub_config.ini>)                Path to hub configuration file
 Examples:
-  hub-pip test
+  hub-pip -c config.ini --DeployHubBdio=True
 Help:
   For help using this tool, please open an issue on the Github_pip repository:
   https://github.com/BlackDuckSoftware/hub-python-plugin
@@ -47,13 +47,13 @@ from . import __version__ as VERSION
 
 
 def cli():
+    """Main CLI entrypoint."""
     options = docopt(__doc__, version=VERSION)
     main(options)
 
 
 def main(options):
-    """Main CLI entrypoint."""
-
+    """Build config file from options"""
     config_str = "[Black Duck Config]\n"
 
     for key, value in options.items():

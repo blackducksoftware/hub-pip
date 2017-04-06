@@ -1,0 +1,744 @@
+[
+    {
+        "@id": "uuid:9b04b002-943a-4d40-8b53-fb6232b56b1f", 
+        "@type": "BillOfMaterials", 
+        "spdx:name": "hub-pip/0.0.1 Black Duck I/O Export", 
+        "specVersion": "1.1.0"
+    }, 
+    {
+        "@id": "data:hub-pip/0.0.1", 
+        "@type": "Project", 
+        "externalIdentifier": {
+            "externalId": "hub-pip/0.0.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "hub-pip", 
+        "relationship": [
+            {
+                "related": "data:configparser/3.5.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:requests/2.13.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:docopt/0.6.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:pynamodb/2.1.5", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:humanize/0.5.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:vceffort/0.3.5", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:pyhomematic/0.1.24", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:pymesh/1.0.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:envmgr-cli/1.5.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:ustudio-hmac-tornado/0.1.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:pyvdp/1.1.6", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:collectd-gnocchi-status/0.2.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:hyml/0.2.6", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:psutil/5.2.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:mjetplex/0.8.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "0.0.1"
+    }, 
+    {
+        "@id": "data:configparser/3.5.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "configparser/3.5.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "configparser", 
+        "revision": "3.5.0"
+    }, 
+    {
+        "@id": "data:requests/2.13.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "requests/2.13.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "requests", 
+        "revision": "2.13.0"
+    }, 
+    {
+        "@id": "data:six/1.10.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "six/1.10.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "six", 
+        "revision": "1.10.0"
+    }, 
+    {
+        "@id": "data:docopt/0.6.2", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "docopt/0.6.2", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "docopt", 
+        "revision": "0.6.2"
+    }, 
+    {
+        "@id": "data:pynamodb/2.1.5", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "pynamodb/2.1.5", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "pynamodb", 
+        "relationship": [
+            {
+                "related": "data:Delorean/0.6.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:botocore/1.5.36", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "2.1.5"
+    }, 
+    {
+        "@id": "data:Delorean/0.6.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "Delorean/0.6.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "Delorean", 
+        "relationship": [
+            {
+                "related": "data:pytz/2017.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:tzlocal/1.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:humanize/0.5.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:python-dateutil/2.6.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:Babel/2.4.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "0.6.0"
+    }, 
+    {
+        "@id": "data:pytz/2017.2", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "pytz/2017.2", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "pytz", 
+        "revision": "2017.2"
+    }, 
+    {
+        "@id": "data:tzlocal/1.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "tzlocal/1.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "tzlocal", 
+        "relationship": [
+            {
+                "related": "data:pytz/2017.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "1.3"
+    }, 
+    {
+        "@id": "data:humanize/0.5.1", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "humanize/0.5.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "humanize", 
+        "revision": "0.5.1"
+    }, 
+    {
+        "@id": "data:python-dateutil/2.6.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "python-dateutil/2.6.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "python-dateutil", 
+        "relationship": [
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "2.6.0"
+    }, 
+    {
+        "@id": "data:Babel/2.4.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "Babel/2.4.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "Babel", 
+        "relationship": [
+            {
+                "related": "data:pytz/2017.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "2.4.0"
+    }, 
+    {
+        "@id": "data:botocore/1.5.36", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "botocore/1.5.36", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "botocore", 
+        "relationship": [
+            {
+                "related": "data:jmespath/0.9.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:docutils/0.13.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:python-dateutil/2.6.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "1.5.36"
+    }, 
+    {
+        "@id": "data:jmespath/0.9.2", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "jmespath/0.9.2", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "jmespath", 
+        "revision": "0.9.2"
+    }, 
+    {
+        "@id": "data:docutils/0.13.1", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "docutils/0.13.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "docutils", 
+        "revision": "0.13.1"
+    }, 
+    {
+        "@id": "data:vceffort/0.3.5", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "vceffort/0.3.5", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "vceffort", 
+        "revision": "0.3.5"
+    }, 
+    {
+        "@id": "data:pyhomematic/0.1.24", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "pyhomematic/0.1.24", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "pyhomematic", 
+        "revision": "0.1.24"
+    }, 
+    {
+        "@id": "data:pymesh/1.0.2", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "pymesh/1.0.2", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "pymesh", 
+        "relationship": [
+            {
+                "related": "data:numpy/1.12.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "1.0.2"
+    }, 
+    {
+        "@id": "data:numpy/1.12.1", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "numpy/1.12.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "numpy", 
+        "revision": "1.12.1"
+    }, 
+    {
+        "@id": "data:envmgr-cli/1.5.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "envmgr-cli/1.5.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "envmgr-cli", 
+        "relationship": [
+            {
+                "related": "data:tabulate/0.7.7", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:environment-manager/0.2.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:repoze.lru/0.6", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:future/0.16.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:progressbar2/3.17.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:simplejson/3.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:docopt/0.6.2", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:requests/2.13.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:appdirs/1.4.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:semver/2.7.6", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "1.5.3"
+    }, 
+    {
+        "@id": "data:tabulate/0.7.7", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "tabulate/0.7.7", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "tabulate", 
+        "revision": "0.7.7"
+    }, 
+    {
+        "@id": "data:environment-manager/0.2.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "environment-manager/0.2.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "environment-manager", 
+        "relationship": [
+            {
+                "related": "data:simplejson/3.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:requests/2.13.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "0.2.0"
+    }, 
+    {
+        "@id": "data:simplejson/3.10.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "simplejson/3.10.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "simplejson", 
+        "revision": "3.10.0"
+    }, 
+    {
+        "@id": "data:repoze.lru/0.6", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "repoze.lru/0.6", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "repoze.lru", 
+        "revision": "0.6"
+    }, 
+    {
+        "@id": "data:future/0.16.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "future/0.16.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "future", 
+        "revision": "0.16.0"
+    }, 
+    {
+        "@id": "data:progressbar2/3.17.1", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "progressbar2/3.17.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "progressbar2", 
+        "relationship": [
+            {
+                "related": "data:python-utils/2.1.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "3.17.1"
+    }, 
+    {
+        "@id": "data:python-utils/2.1.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "python-utils/2.1.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "python-utils", 
+        "relationship": [
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "2.1.0"
+    }, 
+    {
+        "@id": "data:appdirs/1.4.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "appdirs/1.4.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "appdirs", 
+        "revision": "1.4.3"
+    }, 
+    {
+        "@id": "data:semver/2.7.6", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "semver/2.7.6", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "semver", 
+        "revision": "2.7.6"
+    }, 
+    {
+        "@id": "data:ustudio-hmac-tornado/0.1.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "ustudio-hmac-tornado/0.1.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "ustudio-hmac-tornado", 
+        "relationship": [
+            {
+                "related": "data:tornado/4.4.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "0.1.3"
+    }, 
+    {
+        "@id": "data:tornado/4.4.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "tornado/4.4.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "tornado", 
+        "relationship": [
+            {
+                "related": "data:backports-abc/0.5", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:certifi/2017.1.23", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:singledispatch/3.4.0.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "4.4.3"
+    }, 
+    {
+        "@id": "data:backports-abc/0.5", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "backports-abc/0.5", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "backports-abc", 
+        "revision": "0.5"
+    }, 
+    {
+        "@id": "data:certifi/2017.1.23", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "certifi/2017.1.23", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "certifi", 
+        "revision": "2017.1.23"
+    }, 
+    {
+        "@id": "data:singledispatch/3.4.0.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "singledispatch/3.4.0.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "singledispatch", 
+        "relationship": [
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "3.4.0.3"
+    }, 
+    {
+        "@id": "data:pyvdp/1.1.6", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "pyvdp/1.1.6", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "pyvdp", 
+        "relationship": [
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:requests/2.13.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:setuptools/34.3.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:jsonpickle/0.9.4", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "1.1.6"
+    }, 
+    {
+        "@id": "data:setuptools/34.3.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "setuptools/34.3.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "setuptools", 
+        "relationship": [
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:packaging/16.8", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:appdirs/1.4.3", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "34.3.3"
+    }, 
+    {
+        "@id": "data:packaging/16.8", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "packaging/16.8", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "packaging", 
+        "relationship": [
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:pyparsing/2.2.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "16.8"
+    }, 
+    {
+        "@id": "data:pyparsing/2.2.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "pyparsing/2.2.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "pyparsing", 
+        "revision": "2.2.0"
+    }, 
+    {
+        "@id": "data:jsonpickle/0.9.4", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "jsonpickle/0.9.4", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "jsonpickle", 
+        "revision": "0.9.4"
+    }, 
+    {
+        "@id": "data:collectd-gnocchi-status/0.2.0", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "collectd-gnocchi-status/0.2.0", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "collectd-gnocchi-status", 
+        "revision": "0.2.0"
+    }, 
+    {
+        "@id": "data:hyml/0.2.6", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "hyml/0.2.6", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "hyml", 
+        "revision": "0.2.6"
+    }, 
+    {
+        "@id": "data:psutil/5.2.1", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "psutil/5.2.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "psutil", 
+        "revision": "5.2.1"
+    }, 
+    {
+        "@id": "data:mjetplex/0.8.3", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "mjetplex/0.8.3", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "mjetplex", 
+        "relationship": [
+            {
+                "related": "data:SQLAlchemy/1.1.9", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:six/1.10.0", 
+                "relationshipType": "DYNAMIC_LINK"
+            }, 
+            {
+                "related": "data:psycopg2/2.7.1", 
+                "relationshipType": "DYNAMIC_LINK"
+            }
+        ], 
+        "revision": "0.8.3"
+    }, 
+    {
+        "@id": "data:SQLAlchemy/1.1.9", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "SQLAlchemy/1.1.9", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "SQLAlchemy", 
+        "revision": "1.1.9"
+    }, 
+    {
+        "@id": "data:psycopg2/2.7.1", 
+        "@type": "Component", 
+        "externalIdentifier": {
+            "externalId": "psycopg2/2.7.1", 
+            "externalSystemTypeId": "pypi"
+        }, 
+        "name": "psycopg2", 
+        "revision": "2.7.1"
+    }
+]

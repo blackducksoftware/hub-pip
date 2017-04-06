@@ -16,3 +16,12 @@ def error(message=None, e_message=None, print_exception=DEBUG, exit=False):
     if exit:
         print("hub-pip failed")
         sys.exit()
+
+
+def debug(message=None, exit=False):
+    if DEBUG:
+        if message:
+            print("DEBUG >>>>>> " + str(message))
+        if exit:
+            print("hub-pip failed")
+            sys.exit()

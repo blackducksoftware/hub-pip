@@ -40,7 +40,7 @@ class Bdio(object):
         return bom
 
     def _get_node(self, node, package):
-        node.id_ = package.get_internal_id()
+        node.id = package.get_internal_id()
         node.name = package.name
         node.version = package.version
         node.relationships = self._get_relationships(package)

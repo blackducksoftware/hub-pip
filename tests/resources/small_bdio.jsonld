@@ -1,0 +1,74 @@
+[{
+		"@id": "uuid:295c4186-65ba-4e48-b7a2-40476e3bdde8",
+		"@type": "BillOfMaterials",
+		"spdx:name": "hub-pip/0.0.1 Black Duck I/O Export",
+		"spec_version": "1.1.0"
+	},
+	{
+		"@id": "data:hub-pip/0.0.1",
+		"@type": "Project",
+		"externalIdentifier": {
+			"externalId": "hub-pip/0.0.1",
+			"externalSystemTypeId": "pypi"
+		},
+		"name": "hub-pip",
+		"relationship": [{
+				"related": "data:configparser/3.5.0",
+				"relationshipType": "DYNAMIC_LINK"
+			},
+			{
+				"related": "data:requests/2.13.0",
+				"relationshipType": "DYNAMIC_LINK"
+			},
+			{
+				"related": "data:six/1.10.0",
+				"relationshipType": "DYNAMIC_LINK"
+			},
+			{
+				"related": "data:docopt/0.6.2",
+				"relationshipType": "DYNAMIC_LINK"
+			}
+		],
+		"revision": "0.0.1"
+	},
+	{
+		"@id": "data:configparser/3.5.0",
+		"@type": "Component",
+		"externalIdentifier": {
+			"externalId": "configparser/3.5.0",
+			"externalSystemTypeId": "pypi"
+		},
+		"name": "configparser",
+		"revision": "3.5.0"
+	},
+	{
+		"@id": "data:requests/2.13.0",
+		"@type": "Component",
+		"externalIdentifier": {
+			"externalId": "requests/2.13.0",
+			"externalSystemTypeId": "pypi"
+		},
+		"name": "requests",
+		"revision": "2.13.0"
+	},
+	{
+		"@id": "data:six/1.10.0",
+		"@type": "Component",
+		"externalIdentifier": {
+			"externalId": "six/1.10.0",
+			"externalSystemTypeId": "pypi"
+		},
+		"name": "six",
+		"revision": "1.10.0"
+	},
+	{
+		"@id": "data:docopt/0.6.2",
+		"@type": "Component",
+		"externalIdentifier": {
+			"externalId": "docopt/0.6.2",
+			"externalSystemTypeId": "pypi"
+		},
+		"name": "docopt",
+		"revision": "0.6.2"
+	}
+]

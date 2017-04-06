@@ -88,6 +88,7 @@ class BlackDuckConfig(object):
 
         """Parse config string"""
         url = bd_config.get(config, url, "Hub-Url")
+
         username = bd_config.get(config, username, "Hub-Username")
         password = bd_config.get(config, password, "Hub-Password")
         p_host = bd_config.get(config, p_host, "Hub-Proxy-Host")
@@ -137,6 +138,7 @@ class BlackDuckConfig(object):
 
         verify(bd_config)
         verify(bd_config.hub_server_config)
+
         return bd_config
 
     def get(self, config, default, property_name):

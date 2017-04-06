@@ -188,3 +188,6 @@ ENV/
 .ropeproject
 /.project
 /.pydevproject
+
+#custom
+test_output/
