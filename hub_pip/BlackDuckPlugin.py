@@ -55,7 +55,7 @@ class BlackDuckCommand(Command):
         self.Hub_Timeout = None
         self.Hub_ScanTimeout = None
         self.Hub_CodeLocationName = None
-        self.OutputDirecotry = None
+        self.OutputDirectory = None
         self.RequirementsFile = None
         self.IgnoreFailure = None
         self.CreateFlatDependencyList = None
@@ -85,7 +85,7 @@ class BlackDuckCommand(Command):
             '--Hub-Timeout': self.Hub_Timeout,
             '--Hub-ScanTimeout': self.Hub_ScanTimeout,
             '--Hub-CodeLocationName': self.Hub_CodeLocationName,
-            '--OutputDirecotry': self.OutputDirecotry,
+            '--OutputDirectory': self.OutputDirectory,
             '--RequirementsFile': self.RequirementsFile,
             '--IgnoreFailure': self.IgnoreFailure,
             '--CreateFlatDependencyList': self.CreateFlatDependencyList,

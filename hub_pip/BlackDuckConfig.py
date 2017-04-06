@@ -19,12 +19,12 @@ class BlackDuckConfig(object):
     hub_server_config = None
     code_location_name = None
 
-    output_path = "build/output"
+    output_path = "build/blackduck"
     requirements_file_path = None
 
     ignore_failure = True
-    flat_list = True
-    tree_list = True
+    flat_list = False
+    tree_list = False
     create_hub_bdio = True
     deploy_hub_bdio = False
     check_policies = False

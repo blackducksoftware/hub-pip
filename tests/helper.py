@@ -11,7 +11,7 @@ VALID = "valid.ini"
 INVALID = "invalid.ini"
 BROKEN = "broken.ini"
 
-CLEANUP = False
+CLEANUP = True
 
 REQUIREMENTS = "tests/resources/requirements.txt"
 SMALL_BDIO = "tests/resources/small_bdio.jsonld"

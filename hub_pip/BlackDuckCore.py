@@ -45,11 +45,12 @@ class BlackDuckCore(object):
 
     def run(self):
         try:
-            self.execute()
+            return self.execute()
         except Exception as e:
             error(e_message=e.args[1], exit=self.fail)
+        return None
 
-    def run(self):
+    def execute(self):
         info("Gathering dependencies")
 
         project_av = self.project_name + "==" + self.project_version
@@ -144,6 +145,7 @@ class BlackDuckCore(object):
         if policy_status.overall_status == "IN_VIOLATION":
             error(message="The Hub found: " + policy_status.get_in_violation() +
                   " components in violation", exit=self.fail)
+        return policy_status
 
     def _fetch_optional_requirements(self):
         requirements = self.config.requirements_file_path

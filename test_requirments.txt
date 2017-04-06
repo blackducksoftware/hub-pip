@@ -16,7 +16,7 @@ humanize==0.5.1
 hyml==0.2.6
 jmespath==0.9.2
 jsonpickle==0.9.4
-mjetplex==0.8.3
+mjetplex==0.2.2
 numpy==1.12.1
 packaging==16.8
 progressbar2==3.17.1
