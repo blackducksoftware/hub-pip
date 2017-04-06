@@ -18,7 +18,7 @@ setup(
     name=package_name,
     version=package_version,
     author="Black Duck Software",
-    author_email="",
+    author_email="bdsoss@blackducksoftware.com",
     description=(
         "Generates and deploys Black Duck I/O files for use with the Black Duck Hub"),
     license="Apache 2.0",
