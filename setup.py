@@ -24,7 +24,7 @@ setup(
     license="Apache 2.0",
     keywords="hub-pip blackduck",
     url="https://github.com/blackducksoftware/hub-python-plugin",
-    packages=[package_name],
+    packages=["hub_pip"],
     install_requires=["configparser", "requests", "six", "docopt"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],

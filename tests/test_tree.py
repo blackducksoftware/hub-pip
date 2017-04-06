@@ -1,6 +1,7 @@
 import os
 
 import pip
+import six
 
 from helper import *
 from hub_pip.BlackDuckCore import BlackDuckCore
@@ -17,7 +18,10 @@ class TestTreeList:
         config = get_config(VALID)
         config.requirements_file_path = REQUIREMENTS
 
-        self._test_tree(config, 64)
+        if six.PY2:
+            self._test_tree(config, 64)
+        else:
+            self._test_tree(config, 60)
 
     def _test_tree(self, config, length):
         config.tree_list = True
