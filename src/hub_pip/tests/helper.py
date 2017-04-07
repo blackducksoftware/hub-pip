@@ -2,6 +2,7 @@
 
 import os
 
+from hub_pip import __version__
 from hub_pip.BlackDuckConfig import BlackDuckConfig
 from hub_pip.LogHandler import *
 
@@ -23,7 +24,7 @@ def get_config(file_name):
     file_path = BASE + file_name
     config = BlackDuckConfig.from_file(file_path)
     config.project_name = "hub-pip"
-    config.project_version_name = "0.0.3"
+    config.project_version_name = __version__
     return config
 
 

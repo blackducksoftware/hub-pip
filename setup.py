@@ -3,7 +3,7 @@ import os
 from setuptools import setup, find_packages
 
 package_name = "hub-pip"
-package_version = "0.0.4"
+package_version = "0.0.5"
 
 setup(
     name=package_name,
