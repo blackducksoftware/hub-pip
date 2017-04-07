@@ -117,7 +117,7 @@ def main(options):
 
 def copy_config(path=None):
     pkgdir = sys.modules["hub_pip"].__path__[0]
-    fullpath = os.path.join(pkgdir, "../../sample_config.ini")
+    fullpath = os.path.join(pkgdir, "sample_config.ini")
     if path:
         shutil.copy(fullpath, path)
     else:

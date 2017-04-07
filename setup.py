@@ -21,6 +21,9 @@ setup(
     packages=find_packages("src"),
     package_dir={'': 'src'},
     include_package_data=True,
+    package_data={
+        '': ['*.md', '*.ini'],
+    },
     entry_points={
         "console_scripts": [
             "hub_pip=hub_pip.Main:cli",
