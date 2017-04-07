@@ -115,10 +115,44 @@ def main(options):
     core.run()
 
 
+sample_config = """
+# This is a sample comment
+; This is also a sample comment
+# Values are set to None are set to default values
+
+[Black Duck Config]
+Hub-Url = http://int-hub02.dc1.lan:8080
+Hub-Username = sysadmin
+Hub-Password = blackduck
+
+Hub-Proxy-Host = None
+Hub-Proxy-Port = None
+Hub-Proxy-Username = None
+Hub-Proxy-Password = None
+
+Hub-Timeout = 120
+Hub-ScanTimeout = 300
+
+Hub-CodeLocationName = None
+
+OutputDirectory = build/output/
+RequirementsFile = None
+
+IgnoreFailure = False
+CreateFlatDependencyList = True
+CreateTreeDependencyList = True
+CreateHubBdio = True
+DeployHubBdio = True
+CheckPolicies = True
+
+Project-Name = None
+Project-Version = None
+"""
+
+
 def copy_config(path=None):
-    pkgdir = sys.modules["hub_pip"].__path__[0]
-    fullpath = os.path.join(pkgdir, "sample_config.ini")
-    if path:
-        shutil.copy(fullpath, path)
-    else:
-        shutil.copy(fullpath, os.getcwd())
+    fullpath = os.path.join(os.getcwd(), "sample_config.ini")
+    if path is None:
+        path = fullpath
+    with open(path, "w+") as file:
+        file.write(sample_config)
