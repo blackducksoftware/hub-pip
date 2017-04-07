@@ -64,8 +64,6 @@ hub_pip [
 
 from inspect import getmembers, isclass
 import os
-import shutil
-import sys
 
 from docopt import docopt
 
@@ -121,9 +119,9 @@ sample_config = """
 # Values are set to None are set to default values
 
 [Black Duck Config]
-Hub-Url = http://int-hub02.dc1.lan:8080
-Hub-Username = sysadmin
-Hub-Password = blackduck
+Hub-Url = None
+Hub-Username = None
+Hub-Password = None
 
 Hub-Proxy-Host = None
 Hub-Proxy-Port = None
@@ -151,8 +149,9 @@ Project-Version = None
 
 
 def copy_config(path=None):
-    fullpath = os.path.join(os.getcwd(), "sample_config.ini")
+    fullpath = os.path.join(os.getcwd(), "hub_config.ini")
     if path is None:
         path = fullpath
     with open(path, "w+") as file:
         file.write(sample_config)
+        print("Created a sample config file @ " + path)
