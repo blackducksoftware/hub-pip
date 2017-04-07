@@ -2,17 +2,8 @@ import os
 
 from setuptools import setup, find_packages
 
-
-# Utility function to read the README file.
-# Used for the long_description.  It"s nice, because now 1) we have a top level
-# README file and 2) it"s easier to type in the README file than to put a raw
-# string in below ...
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
-
 package_name = "hub-pip"
-package_version = "0.0.2"
+package_version = "0.0.3"
 
 setup(
     name=package_name,
@@ -27,7 +18,6 @@ setup(
     install_requires=["configparser", "requests", "six", "docopt"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
-    long_description=read("README.md"),
     classifiers=[],
     packages=["hub_pip"],
     include_package_data=True,

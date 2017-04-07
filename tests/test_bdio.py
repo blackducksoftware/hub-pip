@@ -67,12 +67,17 @@ def get_type_list(bdio, type, cls):
 def compare_bom(expected_bdio, actual_bdio):
     expected_bom = get_type(expected_bdio, "BillOfMaterials", BillOfMaterials)
     actual_bom = get_type(actual_bdio, "BillOfMaterials", BillOfMaterials)
+    expected_bom.name = actual_bom.name
     assert(actual_bom == expected_bom)
 
 
 def compare_project(expected_bdio, actual_bdio):
     expected_project = get_type(expected_bdio, "Project", BdioProject)
     actual_project = get_type(actual_bdio, "Project", BdioProject)
+    expected_project.name = actual_project.name
+    expected_project.version = actual_project.version
+    expected_project.id = actual_project.id
+    expected_project.external_id = actual_project.external_id
     assert(actual_project == expected_project)
 
 

@@ -28,7 +28,7 @@ class BillOfMaterials(object):
     def __eq__(self, other):
         if isinstance(other, BillOfMaterials):
             type = self.type == other.type
-            name = self.name == other.name
+            name = self.name = other.name
             external_id = self.external_id == other.external_id
             spec_version = self.spec_version == other.spec_version
             relationships = True
