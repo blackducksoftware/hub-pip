@@ -23,7 +23,7 @@ setup(
         "Generates and deploys Black Duck I/O files for use with the Black Duck Hub"),
     license="Apache 2.0",
     keywords="hub-pip blackduck",
-    url="https://github.com/blackducksoftware/hub-python-plugin",
+    url="https://github.com/blackducksoftware/hub-pip",
     install_requires=["configparser", "requests", "six", "docopt"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
