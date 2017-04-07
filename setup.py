@@ -18,12 +18,9 @@ setup(
     install_requires=["configparser", "requests", "six", "docopt"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
-    classifiers=[],
-    packages=["hub_pip"],
+    packages=find_packages("src"),
+    package_dir={'': 'src'},
     include_package_data=True,
-    package_data={
-        "": ["*.md", "*.rst"],
-    },
     entry_points={
         "console_scripts": [
             "hub_pip=hub_pip.Main:cli",
