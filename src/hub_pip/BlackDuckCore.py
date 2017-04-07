@@ -47,11 +47,14 @@ class BlackDuckCore(object):
         try:
             return self.execute()
         except Exception as e:
-            error(e_message=e.args[1], exit=self.fail)
+            error(message=e, exit=self.fail)
         return None
 
     def execute(self):
         info("Gathering dependencies")
+
+        if self.project_name is None or self.project_version is None:
+            error(error("Project name or version is not set", exit=self.fail))
 
         project_av = self.project_name + "==" + self.project_version
         pkgs = get_raw_dependencies(project_av, self.fail_on_match)
