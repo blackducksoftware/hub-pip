@@ -24,12 +24,16 @@ setup(
     license="Apache 2.0",
     keywords="hub-pip blackduck",
     url="https://github.com/blackducksoftware/hub-python-plugin",
-    packages=["hub_pip"],
     install_requires=["configparser", "requests", "six", "docopt"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
     long_description=read("README.md"),
     classifiers=[],
+    packages=["hub_pip"],
+    include_package_data=True,
+    package_data={
+        "": ["*.md", "*.rst"],
+    },
     entry_points={
         "console_scripts": [
             "hub_pip=hub_pip.Main:cli",

@@ -202,7 +202,7 @@ def get_raw_dependencies(package, fail_on_match):
             [project_requirement], env=environment)
     except Exception as e:
         m = "No matching packages found for declared dependency: "
-        error(message=m + package, e_message=e.args[1], exit=fail_on_match)
+        error(message=m + package, exit=fail_on_match)
     return dependencies
 
 
