@@ -1,5 +1,4 @@
 import uuid
-from sqlalchemy.orm import relationship
 
 
 class BillOfMaterials(object):
