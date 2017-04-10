@@ -13,7 +13,7 @@ environment-manager==0.2.0
 envmgr-cli==1.5.3
 future==0.16.0
 humanize==0.5.1
-hyml==0.2.6
+hyml==v0.2.6
 jmespath==0.9.2
 jsonpickle==0.9.4
 mjetplex==0.2.2
