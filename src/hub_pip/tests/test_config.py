@@ -5,11 +5,11 @@ class TestConfig:
 
     def test_valid(self):
         config = get_config(VALID)
-        assert(config.hub_server_config.hub_username == "sysadmin")
+        assert(config.hub_server_config.hub_username == None)
 
     def test_invalid(self):
         config = get_config(INVALID)
-        assert(config.hub_server_config.hub_username != "sysadmin")
+        assert(config.hub_server_config.hub_username != None)
 
     def test_broken(self):
         broken = False
