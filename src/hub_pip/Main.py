@@ -2,7 +2,7 @@
 """
 hub_pip
 Usage:
-  hub_pip config [<file_path>]
+  hub_pip create-config [<file_path>]
   hub_pip <project-name> <project-version>
         [
         ((-c | --Config) <hub_config.ini>) 
@@ -37,31 +37,6 @@ Help:
   https://github.com/BlackDuckSoftware/hub-python-plugin
 """
 
-
-"""
-hub_pip [
-            ((-c | --Config) <hub_config.ini>) 
-            --Hub-Url=<huburl>
-            --Hub-Username=<username>
-            --Hub-Password=<password>
-            --Hub-Proxy-Host=<None>
-            --Hub-Proxy-Port=<None>
-            --Hub-Proxy-Username=<None>
-            --Hub-Proxy-Password=<None>
-            --Hub-Timeout=<120>
-            --Hub-ScanTimeout=<300>
-            --Hub-CodeLocationName=<None>
-            --OutputDirectory=<build/output/>
-            --RequirementsFile=<None>
-            --IgnoreFailure=<False>
-            --CreateFlatDependencyList=<True>
-            --CreateTreeDependencyList=<True>
-            --CreateHubBdio=<True>
-            --DeployHubBdio=<False>
-            --CheckPolicies=<False>
-            ]
-"""
-
 from inspect import getmembers, isclass
 import os
 
@@ -83,7 +58,7 @@ def cli():
     if options["<project-version>"]:
         options["--Project-Version"] = options["<project-version>"]
 
-    if options["config"]:
+    if options["create-config"]:
         if options["<file_path>"]:
             copy_config(path=options["<file_path>"])
         else:
