@@ -7,5 +7,5 @@ script:
     - echo "TODO"
 after_success:    
 - pip install hub-pip
-- python setup.py hub-pip --DeployHubBdio=false
-- bash <(curl -s https://copilot.blackducksoftware.com/bash/travis) ./build/blackduck/*_bdio.jsonld
+- python setup.py hub_pip --DeployHubBdio=false
+- bash <(curl -s https://copilot.blackducksoftware.com/bash/travis) ./build/blackduck/*.jsonld
