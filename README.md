@@ -7,6 +7,9 @@ Black Duck Hub setup tool/pip plugin.  Generates a dependency list inside the Hu
 [![Build Status](https://travis-ci.org/blackducksoftware/hub-python-plugin.svg?branch=master)](https://travis-ci.org/blackducksoftware/hub-pip)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+## Where can I get the latest release? ##
+You can download the latest release from PyPi: https://pypi.python.org/pypi/hub-pip
+
 ## Documentation
 
 Latest documentation can be found here:  https://github.com/blackducksoftware/hub-pip/wiki
