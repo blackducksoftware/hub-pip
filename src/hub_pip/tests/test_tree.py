@@ -1,11 +1,10 @@
 import os
 
-import pip
-import six
-
-from helper import *
 from hub_pip.BlackDuckCore import BlackDuckCore
 from hub_pip.FileHandler import get_file_path, TREE_EXTENSION
+from hub_pip.tests.helper import *
+import pip
+import six
 
 
 class TestTreeList:

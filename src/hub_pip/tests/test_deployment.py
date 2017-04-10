@@ -1,10 +1,9 @@
 import os
 
-import pip
-
-from helper import *
 from hub_pip.BlackDuckCore import BlackDuckCore
 from hub_pip.FileHandler import get_file_path, BDIO_EXTENSION
+from hub_pip.tests.helper import *
+import pip
 
 
 class TestDeployment:

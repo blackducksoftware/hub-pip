@@ -1,4 +1,4 @@
-from helper import *
+from hub_pip.tests.helper import *
 
 
 class TestConfig:

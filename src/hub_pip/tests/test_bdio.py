@@ -1,13 +1,13 @@
 import json
 import os
 
-from helper import *
 from hub_pip.BlackDuckCore import BlackDuckCore
 from hub_pip.BlackDuckSerializer import map_to_object
 from hub_pip.FileHandler import get_file_path, BDIO_EXTENSION
 from hub_pip.bdio.BdioComponent import BdioComponent
 from hub_pip.bdio.BdioProject import BdioProject
 from hub_pip.bdio.BillOfMaterials import BillOfMaterials
+from hub_pip.tests.helper import *
 
 
 class TestBdio:
