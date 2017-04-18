@@ -13,4 +13,4 @@ You can download the latest release from PyPi: https://pypi.python.org/pypi/hub-
 
 ## Documentation
 
-Latest documentation can be found here:  https://github.com/blackducksoftware/hub-pip/wiki
+Latest documentation can be found on our public [Black Duck Confluence](https://blackducksoftware.atlassian.net/wiki/display/INTDOCS/)
