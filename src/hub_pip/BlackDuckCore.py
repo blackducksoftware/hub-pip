@@ -114,8 +114,8 @@ class BlackDuckCore(object):
             linked_data_response = linked_data_data_service.upload_bdio(
                 bdio_data)
             info("Black Duck I/O successfully deployed to the hub")
-        except:
-            error(message="Failed to deploy Black Duck I/O to the hub", exit=self.fail)
+        except Exception as e:
+            error(message=e, exit=self.fail)
 
     def check_policies(self, tree):
         info("Checking component policy status")
