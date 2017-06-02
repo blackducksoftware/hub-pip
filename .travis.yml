@@ -3,8 +3,6 @@ python:
   - 2.7
 install:
   - python setup.py install
-script:
-    - echo "TODO"
 after_success:    
 - pip install hub-pip
 - python setup.py hub_pip --DeployHubBdio=false
