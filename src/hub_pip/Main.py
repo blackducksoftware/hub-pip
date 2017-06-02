@@ -5,7 +5,7 @@ Usage:
   hub_pip create-config [<file_path>]
   hub_pip <project-name> <project-version>
         [
-        ((-c | --Config) <hub_config.ini>) 
+        ((-c | --Config) <hub_config.ini>)
         --Hub-Url=<huburl>
         --Hub-Username=<username>
         --Hub-Password=<password>
@@ -24,12 +24,13 @@ Usage:
         --CreateHubBdio=<True>
         --DeployHubBdio=<False>
         --CheckPolicies=<False>
+        --VerifySSL=<True>
         ]
-        
+
 Options:
     -h --help                            Show this screen.
     --version                            Show version.
-    
+
 Examples:
   hub-pip -c config.ini --DeployHubBdio=True
 Help:
@@ -97,6 +98,8 @@ sample_config = """
 Hub-Url = None
 Hub-Username = None
 Hub-Password = None
+
+VerifySSL = True
 
 Hub-Proxy-Host = None
 Hub-Proxy-Port = None

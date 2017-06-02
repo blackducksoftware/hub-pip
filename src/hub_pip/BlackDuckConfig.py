@@ -71,6 +71,7 @@ class BlackDuckConfig(object):
         p_password = bd_config.hub_server_config.hub_proxy_password
         timeout = bd_config.hub_server_config.hub_timeout
         s_timeout = bd_config.hub_server_config.hub_scan_timeout
+        verify_ssl = bd_config.hub_server_config.verify_ssl
 
         code_loc = bd_config.code_location_name
         output_path = bd_config.output_path
@@ -97,6 +98,7 @@ class BlackDuckConfig(object):
         p_password = bd_config.get(config, p_password, "Hub-Proxy-Password")
         timeout = bd_config.getfloat(config, timeout, "Hub-Timeout")
         s_timeout = bd_config.getfloat(config, s_timeout, "Hub-ScanTimeout")
+        verify_ssl = bd_config.getboolean(config, verify_ssl, "VerifySSL")
 
         code_loc = bd_config.get(config, code_loc, "Hub-CodeLocationName")
         output_path = bd_config.get(config, output_path, "OutputDirectory")
@@ -121,6 +123,7 @@ class BlackDuckConfig(object):
         bd_config.hub_server_config.hub_proxy_password = p_password
         bd_config.hub_server_config.hub_timeout = timeout
         bd_config.hub_server_config.hub_scan_timeout = s_timeout
+        bd_config.hub_server_config.verify_ssl = verify_ssl
 
         bd_config.code_location_name = code_loc
         bd_config.output_path = output_path

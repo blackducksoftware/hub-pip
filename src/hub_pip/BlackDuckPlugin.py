@@ -37,6 +37,7 @@ class BlackDuckCommand(Command):
         ("CheckPolicies=", None, None),
         ("Project-Name=", None, None),
         ("Project-Version=", None, None),
+        ("VerifySSL=", None, None),
     ]
 
     options = None
@@ -65,6 +66,7 @@ class BlackDuckCommand(Command):
         self.CheckPolicies = None
         self.Project_Name = None
         self.Project_Version = None
+        self.VerifySSL = None
 
     def finalize_options(self):
         if self.Project_Name is None:
@@ -96,6 +98,7 @@ class BlackDuckCommand(Command):
             '<hub_config.ini>': self.Config,
             '--Project-Name': self.Project_Name,
             '--Project-Version': self.Project_Version,
+            '--VerifySSL': self.VerifySSL,
         }
 
     def run(self):
@@ -108,9 +111,9 @@ def string_to_boolean(string):
         return True
     if string == False:
         return False
-    if string == "True":
+    if string == "True" or string == "true":
         return True
-    elif string == "False":
+    elif string == "False" or string == "false":
         return False
     else:
         raise ValueError

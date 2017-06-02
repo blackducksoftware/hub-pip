@@ -7,9 +7,11 @@ from hub_pip.api.HubServerConfig import HubServerConfig
 class RestConnection(object):
 
     JSPRING = "j_spring_security_check"
+    CSRF_TOKEN = "X-CSRF-TOKEN"
 
     _session = None
     config = None  # HubServerConfig
+    token = None
 
     def __init__(self, hub_server_config):
         self._session = requests.session()
@@ -38,25 +40,28 @@ class RestConnection(object):
         return self.make_get_request_link(url, params=params, headers=headers, proxies=proxies)
 
     def make_get_request_link(self, url, params=None, headers=None):
-        # TODO: check to make sure its a valid url and not a path
-
         if headers is None:
             headers = self.headers_json()
         proxies = self.get_proxies()
         response = None
+        if self.token is not None:
+            headers[self.CSRF_TOKEN] = self.token
         if params:
             response = self._session.get(
                 url, params=params, headers=headers, proxies=proxies)
         else:
-            response = self._session.get(url, headers=headers, proxies=proxies)
+            response = self._session.get(url, headers=headers, proxies=proxies, verify=self.config.verify_ssl)
+        print(response)
         response.raise_for_status()
         return response
 
     def make_post_request(self, path, content, headers=None):
         proxies = self.get_proxies()
         url = self.build_url(path)
+        if self.token is not None:
+            headers[self.CSRF_TOKEN] = self.token
         response = self._session.post(
-            url, content, headers=headers, proxies=proxies)
+            url, content, headers=headers, proxies=proxies, verify=self.config.verify_ssl)
         return response
 
     def headers_json(self):
@@ -100,3 +105,6 @@ class RestConnection(object):
     def remap_object(self, data, cls):
         data = map_to_object(data, cls)
         return data
+
+    def setCsrfToken(self, token):
+        self.token = token

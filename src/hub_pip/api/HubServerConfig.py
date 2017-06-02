@@ -12,5 +12,7 @@ class HubServerConfig(object):
     hub_timeout = 120
     hub_scan_timeout = 300
 
+    verify_ssl=True
+
     def __init__(self):
         pass

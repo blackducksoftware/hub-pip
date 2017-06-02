@@ -191,3 +191,4 @@ ENV/
 
 #custom
 test_output/
+.DS_Store

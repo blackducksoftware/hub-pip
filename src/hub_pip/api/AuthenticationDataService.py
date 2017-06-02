@@ -19,6 +19,11 @@ class AuthenticationDataService(object):
         }
         response = self.rest_connection.make_post_request(
             self.rest_connection.JSPRING, credentials)
+        try:
+            token = response.headers[self.rest_connection.CSRF_TOKEN]
+            self.rest_connection.token = token
+        except:
+            pass
         return response
 
 
