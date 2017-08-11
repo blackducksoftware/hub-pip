@@ -9,4 +9,3 @@ pyvdp
 collectd-gnocchi-status
 hyml
 psutil
-mjetplex

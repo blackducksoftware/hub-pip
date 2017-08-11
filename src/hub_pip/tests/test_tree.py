@@ -18,9 +18,9 @@ class TestTreeList:
         config.requirements_file_path = REQUIREMENTS
 
         if six.PY2:
-            self._test_tree(config, 64)
-        else:
             self._test_tree(config, 60)
+        else:
+            self._test_tree(config, 56)
 
     def _test_tree(self, config, length):
         config.tree_list = True
