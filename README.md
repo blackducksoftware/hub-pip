@@ -1,5 +1,7 @@
 # Hub Pip Plugin
 
+*Update:* This plugin is no longer supported.  This functionality has been replaced by [Detect](https://github.com/blackducksoftware/hub-detect).
+
 Black Duck Hub setup tool/pip plugin.  Generates a dependency list inside the Hub for your Python projects. 
 
 ## Build
